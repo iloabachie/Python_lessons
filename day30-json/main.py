@@ -92,7 +92,7 @@ def save():
         global warning
         warning = Tk()
         warning.title('Careful')
-        warning.config(padx=10, pady=10, bg='grey')
+        warning.config(padx=10, pady=10, bg='white')
         warning_label = Label(warning, text='Do not visit', bg='white')
         warning_label.grid(column=0, row=0)
         warning_label.config(padx=5, pady=5)

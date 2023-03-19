@@ -1,23 +1,29 @@
 from selenium import webdriver
 import os, dotenv  # py -m pip install python-dotenv
+import time
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
 
 dotenv.load_dotenv(r'day48-selenium\.env')
 token = os.getenv('EMAIL')
 username = os.getenv('USERZNAME')
 
+chrome_driver_path = r"day48-selenium\ChromeDriver\chromedriver.exe"
+service = Service(chrome_driver_path)
+driver = webdriver.Chrome(service=service)
 
-print(1111, token, username)
-print(2222, os.environ.get('TOKEN'))
-print(3333, os.getenv('TEMP'))
+driver.get('https://toronto.citynews.ca/contests/')
 
-chrome_driver_path = r"D:\Documents\Python lessons\ChromeDriver\chromedriver.exe"
+time.sleep(5)
+element = driver.find_element(By.LINK_TEXT, 'The CityNews 680 Weather Guarantee')
+# print(element)
+print(element.text)
 
-driver = webdriver.Chrome(executable_path=chrome_driver_path)
+# element.click()
 
-driver.get('https://toronto.citynews.ca/2022/11/07/the-citynews-680-weather-guarantee/')
-driver.find_element_by_xpath('//*[@id="main"]/div/div/article[2]/div/div/a')
+time.sleep(100000)
 
 driver.close() # closes active tab
 driver.quit() # closes the window
-
 

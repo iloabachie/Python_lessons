@@ -3,6 +3,12 @@ from tkinter import messagebox
 from Pass_gen05 import pass_gen
 import pyperclip
 import json
+import sqlite3
+
+connection = sqlite3.connect(r'./day30-sqlite3/passwords.db')
+cursur = connection.cursor()
+
+cursur.execute('CREATE TABLE IF NOT EXISTS passwords (Website text PRIMARY KEY, Address text, Username text, Password text)')
 
 # ---------------------- PASSWORD GENERATOR ------------------------ #
 
@@ -78,14 +84,7 @@ def save():
     username = username_entry.get()
     website = website_entry.get()
     webaddress = webaddress_entry.get()
-    new_data = {
-        website.lower(): {
-            'webaddress': webaddress,
-            'username': username,
-            'password': password
-        }
-    }
-    
+       
     if website == '' or username == '' or password == '' or webaddress == '':
         messagebox.showerror(title='Missing field', message='Please provide all details.')
     elif website == 'popup':
@@ -100,24 +99,15 @@ def save():
         warning_button.grid(column=0, row=2)
         warning_button.config(padx=5, pady=5)
 
-    else:
+    else:                
         is_ok = messagebox.askokcancel(title=website, message=f'Web address: {webaddress}\nUsername: {username}\nPassword: {password}')
         if is_ok:
-            try:
-                with open('./day30-updatte/logs.json', 'r') as file: 
-                    data = json.load(file)
-                    data.update(new_data)
-            except FileNotFoundError:
-                with open('./day30-updatte/logs.json', 'w') as file: 
-                    json.dump(new_data, file, indent=4)
-            else:
-                with open('./day30-updatte/logs.json', 'w') as file: 
-                    json.dump(data, file, indent=4, sort_keys=True)
-            finally:
-                website_entry.delete(0, END)
-                password_entry.delete(0, END)
-                webaddress_entry.delete(0, END)
-                messagebox.showinfo(title='Saved', message='Password log updated.')
+            cursur.execute(f'INSERT OR IGNORE INTO passwords VALUES ("{website}", "{webaddress}", "{username}", "{password}")')
+            connection.commit()  
+            website_entry.delete(0, END)
+            password_entry.delete(0, END)
+            webaddress_entry.delete(0, END)
+            messagebox.showinfo(title='Saved', message='Password log updated.')
 
 # ---------------------------- UI SETUP ------------------------------- #
 
@@ -139,7 +129,7 @@ webaddress_label = Label(text='Web Address', bg='white')
 webaddress_label.grid(column=0, row=3)
 webaddress_label.config(padx=5, pady=5)
 
-username_label = Label(text='Email/Username', bg='white')
+username_label = Label(text='Username', bg='white')
 username_label.grid(column=0, row=4)
 username_label.config(padx=5, pady=5)
 
@@ -192,4 +182,7 @@ password_entry.grid(column=1, row=5)
 
 
 window.mainloop()
+
+
+
 

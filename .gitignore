@@ -3,3 +3,6 @@
 /*/__pycache__/
 /*/*/__pycache__/
 *.env
+*.exe
+LICENSE.chromedriver
+*.db
