@@ -12,32 +12,29 @@ cursur.execute('CREATE TABLE IF NOT EXISTS passwords (Website text PRIMARY KEY, 
 
 # ---------------------- PASSWORD GENERATOR ------------------------ #
 
-def delete_item():    
-    try:
-        with open('./day30-updatte/logs.json', 'r') as file: 
-            data = json.load(file)
-    except FileNotFoundError:
-        messagebox.showerror(title='File Missing', message='Contact Support on 123456789')
-    else:
-        website = website_entry.get()
-        is_ok = messagebox.askokcancel(title='Confirmation', message=f'Are you sure to delete data for {website}?')
-        if is_ok:
-            try:
-                password_entry.delete(0, END)
-                webaddress_entry.delete(0, END)
-                username_entry.delete(0, END)
-                website_entry.delete(0, END)
-                webaddress = data[website.lower()]['webaddress']
-                username = data[website.lower()]['username']
-                password = data[website.lower()]['password']
-                data.pop(website.lower())
-            except KeyError as webname:
-                messagebox.showinfo(title='Not found', message=f'{webname} data not found')
-            else:
-                
-                with open('./day30-updatte/logs.json', 'w') as file:
-                    json.dump(data, file, indent=4)          
-                messagebox.showinfo(title='Deleted', message=f'Website: {website}\nWebAddress: {webaddress}\nUsername: {username}\nPassword{password}\nhas been removed')
+def delete_item():   
+    website = website_entry.get() 
+    is_ok = messagebox.askokcancel(title='Confirmation', message=f'Are you sure to delete data for {website}?')
+    if is_ok:        
+        try:
+            primary_key = f'{website}'
+            cursur.execute('SELECT * FROM passwords WHERE Website = ?', (primary_key,))
+            row = cursur.fetchone()     
+            print(row) 
+            print("********************")      
+            if row == None:
+                raise Exception
+            cursur.execute('DELETE FROM passwords WHERE Website = ?', (primary_key,))
+            connection.commit()             
+        except:
+            messagebox.showinfo(title='Not found', message=f'{website} data not found')  
+        else:
+            messagebox.showinfo(title='Deleted', message=f'Website: {website} removed\nWebAddress: {row[1]}\nUsername: {row[2]}\nPassword{row[3]}\nhas been removed')
+        finally:     
+            password_entry.delete(0, END)
+            webaddress_entry.delete(0, END)
+            username_entry.delete(0, END)
+            website_entry.delete(0, END) 
                 
 def exit_window():
     window.destroy()
@@ -54,28 +51,37 @@ def clear_fields():
     webaddress_entry.delete(0, END)
     username_entry.delete(0, END)
 
-def clear_website():
+def clear_website():  # not in use
     website_entry.delete(0, END)
     global warning
     warning.destroy()
 
 def search_data():
+    website = website_entry.get()
     try:
-        with open('./day30-updatte/logs.json', 'r') as file: 
-            data = json.load(file)
-    except FileNotFoundError:
-        messagebox.showerror(title='File Missing', message='Contact Support on 123456789')
-    else:
-        website = website_entry.get()
-        try:
-            password_entry.delete(0, END)
-            webaddress_entry.delete(0, END)
-            username_entry.delete(0, END)
-            webaddress_entry.insert(0, string=data[website.lower()]['webaddress'])
-            username_entry.insert(0, string=data[website.lower()]['username'])
-            password_entry.insert(0, string=data[website.lower()]['password'])
-        except KeyError as webname:
-            messagebox.showinfo(title='Not found', message=f'{webname} data not found')
+        cursur.execute(f'SELECT * FROM passwords') # WHERE website = {website}')
+        rows = cursur.fetchall()
+        for row in rows:
+            print(row)
+        print('************')
+        # actual code here
+        primary_key = f'{website}'
+        cursur.execute('SELECT * FROM passwords WHERE Website = ?', (primary_key,))
+        row = cursur.fetchone()
+        print(row)
+        print("*************")
+        if row == None and len(website) > 0:
+            raise Exception        
+    except:
+        messagebox.showerror(title='Data Missing', message=f'{website} data not found')
+    else:        
+        clear_fields()
+        #show output  
+        if row: 
+            website_entry.insert(0, string=row[0])             
+            webaddress_entry.insert(0, string=row[1])
+            username_entry.insert(0, string=row[2])
+            password_entry.insert(0, string=row[3])
         
 
 # ---------------------------- SAVE PASSWORD --------------------------
@@ -104,9 +110,7 @@ def save():
         if is_ok:
             cursur.execute(f'INSERT OR IGNORE INTO passwords VALUES ("{website}", "{webaddress}", "{username}", "{password}")')
             connection.commit()  
-            website_entry.delete(0, END)
-            password_entry.delete(0, END)
-            webaddress_entry.delete(0, END)
+            clear_fields()
             messagebox.showinfo(title='Saved', message='Password log updated.')
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -183,6 +187,7 @@ password_entry.grid(column=1, row=5)
 
 window.mainloop()
 
-
+cursur.close()
+connection.close()
 
 

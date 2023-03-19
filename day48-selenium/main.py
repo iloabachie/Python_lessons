@@ -20,7 +20,7 @@ element = driver.find_element(By.LINK_TEXT, 'The CityNews 680 Weather Guarantee'
 # print(element)
 print(element.text)
 
-# element.click()
+element.click()
 
 time.sleep(100000)
 

@@ -4,6 +4,7 @@ import time
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
+# https://selenium-python.readthedocs.io/installation.html
 
 dotenv.load_dotenv(r'day48-selenium\.env')
 token = os.getenv('EMAIL')
@@ -32,7 +33,7 @@ element.send_keys(Keys.RETURN)
 
 # element.click()
 
-time.sleep(15)
+time.sleep(7)
 
 driver.close() # closes active tab
 driver.quit() # closes the window
@@ -41,4 +42,3 @@ driver.quit() # closes the window
 # print(dir(webdriver))
 # print()
 # print(dir(driver))
-print(webdriver.Chrome.vars())
