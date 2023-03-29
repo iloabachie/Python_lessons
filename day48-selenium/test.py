@@ -16,6 +16,7 @@ username = os.getenv('USERZNAME')
 # print(3333, os.getenv('TEMP'))
 # print(4444, os.environ.get('EMAIL'))
 
+#Use is deprecated
 # chrome_driver_path = r"day48-selenium\ChromeDriver\chromedriver.exe"
 # service = Service(chrome_driver_path)
 # driver = webdriver.Chrome(service=service)

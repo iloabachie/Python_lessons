@@ -9,6 +9,7 @@ dotenv.load_dotenv(r'day48-selenium\.env')
 token = os.getenv('EMAIL')
 username = os.getenv('USERZNAME')
 
+
 chrome_driver_path = r"day48-selenium\ChromeDriver\chromedriver.exe"
 service = Service(chrome_driver_path)
 driver = webdriver.Chrome(service=service)
@@ -27,3 +28,5 @@ time.sleep(100000)
 driver.close() # closes active tab
 driver.quit() # closes the window
 
+
+print(os.environ.get("EMAIL"))

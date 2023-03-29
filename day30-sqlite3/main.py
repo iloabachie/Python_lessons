@@ -2,15 +2,12 @@ from tkinter import *
 from tkinter import messagebox
 from Pass_gen05 import pass_gen
 import pyperclip
-import json
 import sqlite3
 
-connection = sqlite3.connect(r'./day30-sqlite3/passwords.db')
-cursur = connection.cursor()
+con = sqlite3.connect(r'./day30-sqlite3/passwords.db')
+cur = con.cursor()
 
-cursur.execute('CREATE TABLE IF NOT EXISTS passwords (Website text PRIMARY KEY, Address text, Username text, Password text)')
-
-# ---------------------- PASSWORD GENERATOR ------------------------ #
+cur.execute('CREATE TABLE IF NOT EXISTS passwords(Website TEXT PRIMARY KEY, Address TEXT, Username TEXT, Password TEXT)')
 
 def delete_item():   
     website = website_entry.get() 
@@ -18,23 +15,20 @@ def delete_item():
     if is_ok:        
         try:
             primary_key = f'{website}'
-            cursur.execute('SELECT * FROM passwords WHERE Website = ?', (primary_key,))
-            row = cursur.fetchone()     
+            cur.execute('SELECT * FROM passwords WHERE Website = ?', (primary_key,))
+            row = cur.fetchone()     
             print(row) 
             print("********************")      
             if row == None:
                 raise Exception
-            cursur.execute('DELETE FROM passwords WHERE Website = ?', (primary_key,))
-            connection.commit()             
+            cur.execute('DELETE FROM passwords WHERE Website = ?', (primary_key,))
+            con.commit()             
         except:
             messagebox.showinfo(title='Not found', message=f'{website} data not found')  
         else:
             messagebox.showinfo(title='Deleted', message=f'Website: {website} removed\nWebAddress: {row[1]}\nUsername: {row[2]}\nPassword{row[3]}\nhas been removed')
         finally:     
-            password_entry.delete(0, END)
-            webaddress_entry.delete(0, END)
-            username_entry.delete(0, END)
-            website_entry.delete(0, END) 
+            clear_fields()
                 
 def exit_window():
     window.destroy()
@@ -59,15 +53,15 @@ def clear_website():  # not in use
 def search_data():
     website = website_entry.get()
     try:
-        cursur.execute(f'SELECT * FROM passwords') # WHERE website = {website}')
-        rows = cursur.fetchall()
+        cur.execute(f'SELECT * FROM passwords') # WHERE website = {website}')
+        rows = cur.fetchall()
         for row in rows:
             print(row)
         print('************')
         # actual code here
         primary_key = f'{website}'
-        cursur.execute('SELECT * FROM passwords WHERE Website = ?', (primary_key,))
-        row = cursur.fetchone()
+        cur.execute('SELECT * FROM passwords WHERE Website = ?', (primary_key,))
+        row = cur.fetchone()
         print(row)
         print("*************")
         if row == None and len(website) > 0:
@@ -108,8 +102,8 @@ def save():
     else:                
         is_ok = messagebox.askokcancel(title=website, message=f'Web address: {webaddress}\nUsername: {username}\nPassword: {password}')
         if is_ok:
-            cursur.execute(f'INSERT OR IGNORE INTO passwords VALUES ("{website}", "{webaddress}", "{username}", "{password}")')
-            connection.commit()  
+            cur.execute(f'INSERT OR IGNORE INTO passwords VALUES ("{website}", "{webaddress}", "{username}", "{password}")')
+            con.commit()  
             clear_fields()
             messagebox.showinfo(title='Saved', message='Password log updated.')
 
@@ -187,7 +181,7 @@ password_entry.grid(column=1, row=5)
 
 window.mainloop()
 
-cursur.close()
-connection.close()
+cur.close()
+con.close()
 
 

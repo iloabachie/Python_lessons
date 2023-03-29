@@ -29,7 +29,7 @@ for mcc in template_mcc_list:
     else:
         mcc_code = int(mcc)
         active_list.append(mcc_code)
-
+# print(active_list)
 template_type = input('**Template type: Enter I for include or E for Exclude\n>> ').lower()
 write_file = input('**Do you want to save the output to a file?: y or n\n>> ').lower()
 if write_file == 'y':
@@ -37,20 +37,20 @@ if write_file == 'y':
     file = open(f'test-code\\{file_name}', 'w')
     file.write('MCC  Status\n')
 else:
-    print('Result will not be saved to file')
+    print('Result will not be saved to file\n')
     sleep(2)
 
 print('MCC  Status')
 for code in MCC_LIST:
-    code = code if len(str(code)) == 4 else f'0{code}'
+    cod = code if len(str(code)) == 4 else f'0{code}'
     if template_type == 'i':        
         if write_file == 'y':
-            file.write(f'{code} unblocked\n' if code in active_list else f'{code} blocked\n')
-        print(f'{code} unblocked' if code in active_list else f'{code} blocked')
+            file.write(f'{cod} unblocked\n' if code in active_list else f'{cod} blocked\n')
+        print(f'{cod} unblocked' if code in active_list else f'{cod} blocked')
     elif template_type == 'e':        
         if write_file == 'y':
-            file.write(f'{code} blocked\n' if code in active_list else f'{code} unblocked\n')
-        print(f'{code} blocked' if code in active_list else f'{code} unblocked')
+            file.write(f'{cod} blocked\n' if code in active_list else f'{cod} unblocked\n')
+        print(f'{cod} blocked' if code in active_list else f'{cod} unblocked')
     else:
         print('Template type error!!!  Start again.')
         break
