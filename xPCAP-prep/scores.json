@@ -1,1 +1,30 @@
-{"high_scores": {"two": 6}, "best_times": {"two": 103}}
+{
+  "high_scores": {
+    "three": [
+      "Ez",
+      9
+    ],
+    "two": [
+      "Ezue",
+      6
+    ],
+    "four": [
+      "Ezue",
+      16
+    ]
+  },
+  "best_times": {
+    "three": [
+      "Udemezue",
+      61
+    ],
+    "two": [
+      "Ezue",
+      14
+    ],
+    "four": [
+      "Ezue",
+      128
+    ]
+  }
+}
