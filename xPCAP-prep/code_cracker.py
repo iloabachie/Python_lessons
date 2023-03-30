@@ -5,9 +5,7 @@ This is a fun number game to play
 import random
 import json
 import time
-# import sys
-# sys.path.append("D:\Documents\Python lessons\AngelaYu\Modulesx")
-# from countdown import countdown
+
 
 print("""\n\nwelcome to CODE BREAKER
       
@@ -42,7 +40,7 @@ if num_digits == 4: key = 'four'
         
 # Picks a random code with the number of specified digits       
 pc_code = "".join(random.sample([str(_) for _ in range(10)], num_digits))
-# pc_code = '12'  # for testing the code
+
 
 records = {"high_scores": {}, "best_times": {}}
 
@@ -51,10 +49,12 @@ try: # Attempts to open saved file
         records = json.load(file)
         name1, high_score = records["high_scores"][key]
         name2, best_time = records["best_times"][key]
-        seconds = f'0{best_time % 60}' if 0 <= best_time % 60 <= 9 else best_time % 60
+        minute, sec = divmod(best_time, 60)
+        seconds = '{:02d}'.format(sec)
         print("\n**Leader Board**")
         print(f"Best steps for {key} = {high_score} set by {name1}")  
-        print(f"Best time for {key} = {best_time//60} minute(s) {seconds} second(s) set by {name2}")      
+        print(f"Best time for {key} = {minute} minute(s) {seconds} second(s) set by {name2}")   
+        print(f"Best time for {key} = {'{:02d}min {:02d}sec(s)'.format(minute, sec)} set by {name2}")     
 except Exception as e:  # If saved fine not found or other error
     # print(e)
     high_score = best_time = float('inf')
@@ -86,10 +86,11 @@ while True:
         print(f"Guess Error, guess must contain {num_digits} distinct numbers")
 
 end = round(time.time() - start)
-seconds = f'0{end % 60}' if 0 <= end%60 <= 9 else end % 60
-print(f"\nCODE CRACKED in {count} {attempt} and took {end//60} minute(s) and {seconds} second(s)")
+minute, sec = divmod(end, 60)
+seconds = '{:02d}'.format(sec)
+print(f"\nCODE CRACKED in {count} {attempt} and took {minute} minute(s) and {seconds} second(s)")
 
-# Saves only the fasted score or time in JSON file
+# Saves only the fastest score or time in JSON file
 with open(r'xPCAP-prep\scores.json', 'w') as file:
     if count < high_score:
         high_score = count 
