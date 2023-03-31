@@ -17,16 +17,16 @@ NOPE: no correct digit in guess""")
 
 while True:
     player = input('\nEnter your name: ')
-    if player.isalpha():
+    if player.isalpha() and len(player) <= 8:
         player = player.capitalize()
         break
     else:
-        print("Invalid name.  Name must be only letters")
+        print("Invalid name.  Must be max 8 characters and letters only")
         
         
 # To get teh number of digits of pc code
 while True:
-    num_digits = input("Enter number of digits to crack: ")
+    num_digits = input(f"\nWelcome {player}, enter number of digits to crack: ")
     if num_digits.isnumeric() and 2 <= int(num_digits) <= 4:
         num_digits = int(num_digits)
         break
@@ -41,7 +41,6 @@ if num_digits == 4: key = 'four'
 # Picks a random code with the number of specified digits       
 pc_code = "".join(random.sample([str(_) for _ in range(10)], num_digits))
 
-
 records = {"high_scores": {}, "best_times": {}}
 
 try: # Attempts to open saved file
@@ -50,11 +49,15 @@ try: # Attempts to open saved file
         name1, high_score = records["high_scores"][key]
         name2, best_time = records["best_times"][key]
         minute, sec = divmod(best_time, 60)
-        seconds = '{:02d}'.format(sec)
-        print("\n**Leader Board**")
-        print(f"Best steps for {key} = {high_score} set by {name1}")  
-        print(f"Best time for {key} = {minute} minute(s) {seconds} second(s) set by {name2}")   
-        print(f"Best time for {key} = {'{:02d}min {:02d}sec(s)'.format(minute, sec)} set by {name2}")     
+        print(f"\n**Leader Board for '{key.upper()}'**")
+        print("     Steps Record")
+        print('+----------+----------+')
+        print('| {:8} |       {:2d} |'.format(name1, high_score))
+        print('+----------+----------+')
+        print("     Time Record")    
+        print('+----------+----------+')
+        print('| {:8} |    {:2d}:{:02d} |'.format(name2, minute, sec))
+        print('+----------+----------+')  
 except Exception as e:  # If saved fine not found or other error
     # print(e)
     high_score = best_time = float('inf')
@@ -95,11 +98,11 @@ with open(r'xPCAP-prep\scores.json', 'w') as file:
     if count < high_score:
         high_score = count 
         records["high_scores"][key] = [player, high_score]
-        print(f"This is a new steps record for '{key}'")  
+        print(f"Congratulations!!! New steps record for '{key.upper()}'")  
     if end < best_time:
         best_time = end 
         records["best_times"][key] = [player, best_time]
-        print(f"This is a new time record for '{key}'")  
+        print(f"Congratulations!!! New time record for '{key.upper()}'")  
     json.dump(records, file, indent = 2)  
 
 

@@ -42,7 +42,7 @@ else:
 
 print('MCC  Status')
 for code in MCC_LIST:
-    cod = code if len(str(code)) == 4 else f'0{code}'
+    cod = '{:04}'.format(code)
     if template_type == 'i':        
         if write_file == 'y':
             file.write(f'{cod} unblocked\n' if code in active_list else f'{cod} blocked\n')

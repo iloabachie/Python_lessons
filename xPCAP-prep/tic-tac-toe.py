@@ -83,22 +83,22 @@ def enter_move():
     update_board(user_play, 'human')
 
 def score(): 
-    gn = len(str(game_number))
-    ps = len(str(player_score))
-    cs = len(str(computer_score))
-    spacep = '  '
-    spacec = '  '
-    if ps == 2:
-        spacep = ' '
-    if cs == 2:
-        spacec = ' '
+    # gn = len(str(game_number))
+    # ps = len(str(player_score))
+    # cs = len(str(computer_score))
+    # spacep = '  '
+    # spacec = '  '
+    # if ps == 2:
+    #     spacep = ' '
+    # if cs == 2:
+    #     spacec = ' '
     
     print('+----------+----------+'), sleep(0.1)
-    print(f'| Count    |        {game_number} |' if gn == 1 else f'| Count    |       {game_number} |')#, sleep(0.2)
+    print('| Count    |      {:3d} |'.format(game_number))
     print('+----------+----------+'), sleep(0.1)
     print('| You      | Computer |'), sleep(0.1)
     print('+----------+----------+'), sleep(0.1)
-    print(f'|      {spacep}{player_score} |      {spacec}{computer_score} |'), sleep(0.1)  
+    print('|      {:3d} |      {:3d} |'.format(player_score, computer_score)), sleep(0.1)  
     print('+----------+----------+', end='\n\n'), sleep(0.1)
     
 def victory():
