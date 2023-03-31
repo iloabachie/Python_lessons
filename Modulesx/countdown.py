@@ -18,7 +18,7 @@ def loading1(t):
     for _ in range(t):        
         percent += 100 / x
         y = round(percent, 1)
-        print(f" Loading... [{'|||' * _}{'   ' * (x - _ - 1)}]", '{:3g%}%'.format(y), end="\r")
+        print(f" Loading... [{'|||' * _}{'   ' * (x - _ - 1)}]", '{:3g}%'.format(y), end="\r")
         time.sleep(0.2)
         t -= 1
     time.sleep(0.5)

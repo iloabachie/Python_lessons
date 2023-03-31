@@ -82,17 +82,7 @@ def enter_move():
     print("You play...")
     update_board(user_play, 'human')
 
-def score(): 
-    # gn = len(str(game_number))
-    # ps = len(str(player_score))
-    # cs = len(str(computer_score))
-    # spacep = '  '
-    # spacec = '  '
-    # if ps == 2:
-    #     spacep = ' '
-    # if cs == 2:
-    #     spacec = ' '
-    
+def score():     
     print('+----------+----------+'), sleep(0.1)
     print('| Count    |      {:3d} |'.format(game_number))
     print('+----------+----------+'), sleep(0.1)

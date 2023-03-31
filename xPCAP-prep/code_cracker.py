@@ -98,11 +98,11 @@ with open(r'xPCAP-prep\scores.json', 'w') as file:
     if count < high_score:
         high_score = count 
         records["high_scores"][key] = [player, high_score]
-        print(f"Congratulations!!! New steps record for '{key.upper()}'")  
+        print(f"**Congratulations!!! New steps record for '{key.upper()}'")  
     if end < best_time:
         best_time = end 
         records["best_times"][key] = [player, best_time]
-        print(f"Congratulations!!! New time record for '{key.upper()}'")  
+        print(f"**Congratulations!!! New time record for '{key.upper()}'")  
     json.dump(records, file, indent = 2)  
 
 
