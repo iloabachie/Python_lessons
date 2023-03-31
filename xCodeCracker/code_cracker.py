@@ -1,11 +1,6 @@
-'''
-This is a fun number game to play
-'''
-
 import random
 import json
 import time
-
 
 print("""\n\nwelcome to CODE BREAKER
       
@@ -20,7 +15,7 @@ while True:
         player = player.capitalize()
         break
     else:
-        print("Invalid name.  Must be max 8 characters and letters only")
+        print("Invalid name. Must be max 8 characters and letters only")
         
 # To get teh number of digits of pc code
 while True:
@@ -41,7 +36,7 @@ pc_code = "".join(random.sample([str(_) for _ in range(10)], num_digits))
 records = {"high_scores": {}, "best_times": {}}
 
 try: # Attempts to open saved file
-    with open(r'xPCAP-prep/records.json', 'r') as file:
+    with open(r'xCodeCracker/records.json', 'r') as file:
         records = json.load(file)
         high_score = records["high_scores"][key][1]
         best_time = records["best_times"][key][1]
@@ -76,8 +71,7 @@ input("\nPress 'Enter' to start")
 start = time.time()  # Sets start time
 while True:
     attempt = "attempt" if count == 1 else "attempts" 
-    guess = input(f"\nMake a {num_digits}-digit number guess: ")
-    
+    guess = input(f"\nMake a {num_digits}-digit number guess: ")    
     if guess.isnumeric() and len(guess) == num_digits and len(set(guess)) == num_digits:
         merge = [len(set(_)) for _ in zip(pc_code, guess)]
         if guess == pc_code:
@@ -98,7 +92,7 @@ seconds = '{:02d}'.format(sec)
 print(f"\n***CODE CRACKED***\nCompleted in {count} {attempt} and took {minute} minute(s) and {seconds} second(s)")
 
 # Saves only the fastest score or time in JSON file
-with open(r'xPCAP-prep/records.json', 'w') as file:
+with open(r'xCodeCracker/records.json', 'w') as file:
     if count < high_score:
         high_score = count 
         records["high_scores"][key] = [player, high_score]
