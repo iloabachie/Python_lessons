@@ -9,6 +9,7 @@ MATCH: at least one correct digit in the correct position
 CLOSE: at least one correct digit but in wrong position
 NOPE: no correct digit in guess""")
 
+# Captures player name
 while True:
     player = input('\nEnter your name: ')
     if player.isalpha() and len(player) <= 8:
@@ -17,7 +18,7 @@ while True:
     else:
         print("Invalid name. Must be max 8 characters and letters only")
         
-# To get teh number of digits of pc code
+# To get the number of digits of the Code to crack
 while True:
     num_digits = input(f"\nWelcome {player}, enter number of digits to crack: ")
     if num_digits.isnumeric() and 2 <= int(num_digits) <= 4:
@@ -33,15 +34,18 @@ if num_digits == 4: key = 'four'
         
 # Picks a random code with the number of specified digits       
 pc_code = "".join(random.sample([str(_) for _ in range(10)], num_digits))
+
+# Sets the dictionary of the records for first time play
 records = {"high_scores": {}, "best_times": {}}
 
-try: # Attempts to open saved file
+try: # Attempts to extract the records dictionary from JSON file
     with open(r'xCodeCracker/records.json', 'r') as file:
         records = json.load(file)
         high_score = records["high_scores"][key][1]
         best_time = records["best_times"][key][1]
-except Exception as e:
-    high_score = best_time = float('inf')
+except Exception:
+    # Sets high score and best time to infinity if record does not exist or JSON file absend
+    high_score = best_time = float('inf') 
     
 count = 1 # Sets the counter variable for counting steps
 
@@ -65,7 +69,7 @@ def display_records():
 
 display_records()
 
-input("\nPress 'Enter' to start")
+input("\nPress 'Enter' to start")  # Ensures that timer only starts counting when player is ready
 
 # Game core
 start = time.time()  # Sets start time
@@ -86,7 +90,7 @@ while True:
     else:
         print(f"Guess Error, guess must contain {num_digits} distinct numbers")
 
-end = round(time.time() - start)
+end = round(time.time() - start)  # Captures end time
 minute, sec = divmod(end, 60)
 seconds = '{:02d}'.format(sec)
 print(f"\n***CODE CRACKED***\nCompleted in {count} {attempt} and took {minute} minute(s) and {seconds} second(s)")
