@@ -103,24 +103,28 @@ else:
             else:
                 print(f"NOPE: {attempt}={count}")
             count += 1
+        elif guess.lower() == 'quit':
+            print("\nExiting game...")
+            break
         else:
             print(f"Guess Error, guess must contain {num_digits} distinct numbers")
 
-    end = round(time.time() - start)  # Captures end time
-    minute, sec = divmod(end, 60)
-    seconds = '{:02d}'.format(sec)
-    print(f"\n***CODE CRACKED***\nCompleted in {count} {attempt} and took {minute} minute(s) and {seconds} second(s)")
+    if guess.lower() != 'quit':
+        end = round(time.time() - start)  # Captures end time
+        minute, sec = divmod(end, 60)
+        seconds = '{:02d}'.format(sec)
+        print(f"\n***CODE CRACKED***\nCompleted in {count} {attempt} and took {minute} minute(s) and {seconds} second(s)")
 
-    # Saves only the fastest score or time in JSON file
-    with open(r'xCodeCracker/records.json', 'w') as file:
-        if high_score == 0 or count < high_score:
-            high_score = count 
-            records["high_scores"][key] = [player, high_score]
-            print(f"**Congratulations {player}!!! New steps record for '{key}'")  
-        if end < best_time or best_time == 0:
-            best_time = end 
-            records["best_times"][key] = [player, best_time]
-            print(f"**Congratulations {player}!!! New time record for '{key}'")  
-        json.dump(records, file, indent = 2, sort_keys=True)  
+        # Saves only the fastest score or time in JSON file    
+        with open(r'xCodeCracker/records.json', 'w') as file:
+            if high_score == 0 or count < high_score:
+                high_score = count 
+                records["high_scores"][key] = [player, high_score]
+                print(f"**Congratulations {player}!!! New steps record for '{key}'")  
+            if best_time == 0 or end < best_time:
+                best_time = end 
+                records["best_times"][key] = [player, best_time]
+                print(f"**Congratulations {player}!!! New time record for '{key}'")  
+            json.dump(records, file, indent = 2, sort_keys=True)  
 
     display_records()
