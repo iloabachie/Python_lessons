@@ -4,7 +4,7 @@ import time
 
 print("\n{:^57}".format('Welcome to CODE BREAKER'))  
 print("""=========================================================
-                 ***CLUES***
+                    ***CLUES***
 MATCH: at least one correct digit in the correct position
 CLOSE: at least one correct digit but in wrong position
 NOPE:  no correct digit in guess
@@ -54,7 +54,7 @@ def display_records():
     print("\n{:>34}".format('**Leader Board**'))
     print('+----------+---------------------+---------------------+')
     print('| Game     | Steps Record        | Time Record         |')
-    keys = ("TWO", "THREE", "FOUR", 'one', 'two', 'three', 'four')
+    keys = ("TWO", "THREE", "FOUR")
     for key in keys:
         try:
             name1, high_score = records["high_scores"][key]  
@@ -74,10 +74,10 @@ game_on = input("Press 'Enter' to start or type 'reset' to clear score record: "
 if game_on.lower() == 'reset':
     confirm = input("Are you sure? y or n: ")
     if confirm == 'y':
-        keys = ("TWO", "THREE", "FOUR", 'one', 'two', 'three', 'four')
-        for key in keys:            
-            records["high_scores"][key] = ['--', 0] 
-            records["best_times"][key] = ['--', 0] 
+        keys = ("TWO", "THREE", "FOUR")
+        for rkey in keys:            
+            records["high_scores"][rkey] = ['--', 0] 
+            records["best_times"][rkey] = ['--', 0] 
         with open(r'xCodeCracker/records.json', 'w') as file:        
             json.dump(records, file, indent=2, sort_keys=True)    
         print('Records cleared...')     
@@ -113,11 +113,11 @@ else:
 
     # Saves only the fastest score or time in JSON file
     with open(r'xCodeCracker/records.json', 'w') as file:
-        if count < high_score:
+        if high_score == 0 or count < high_score:
             high_score = count 
             records["high_scores"][key] = [player, high_score]
             print(f"**Congratulations {player}!!! New steps record for '{key}'")  
-        if end < best_time:
+        if end < best_time or best_time == 0:
             best_time = end 
             records["best_times"][key] = [player, best_time]
             print(f"**Congratulations {player}!!! New time record for '{key}'")  
