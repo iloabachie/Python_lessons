@@ -52,7 +52,7 @@ count = 1 # Sets the counter variable for counting steps
 
 def display_records():
     print("\n{:>34}".format('**Leader Board**'))
-    print('+----------+---------------------+---------------------+')
+    print('+----------+' + '---------------------+' * 2)
     print('| Game     | Steps Record        | Time Record         |')
     keys = ("TWO", "THREE", "FOUR")
     for key in keys:
@@ -63,9 +63,9 @@ def display_records():
             name1 = name2 = "--"
             high_score = best_time = 0
         minute, sec = divmod(best_time, 60)  
-        print('+----------+----------+----------+----------+----------+')
-        print('| {:8} | {:8} |       {:2d} | {:8} |    {:2d}:{:02d} |'.format(key, name1, high_score, name2, minute, sec))
-    print('+----------+----------+----------+----------+----------+\n')
+        print('+----------' * 5 + '+')
+        print('| {:8} | {:8} |{:9d} | {:8} |{:6d}:{:02d} |'.format(key, name1, high_score, name2, minute, sec))
+    print('+----------' * 5 + '+\n')
 
 display_records()
 
