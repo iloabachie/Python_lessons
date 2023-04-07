@@ -32,7 +32,7 @@ while True:
 if num_digits == 2: key = 'TWO'
 if num_digits == 3: key = 'THREE'
 if num_digits == 4: key = 'FOUR'
-        
+
 # Picks a random code with the number of specified digits       
 pc_code = "".join(random.sample([str(_) for _ in range(10)], num_digits))
 
@@ -47,17 +47,17 @@ try: # Attempts to extract the records dictionary from JSON file
 except Exception:
     # Sets high score and best time to infinity if record does not exist or JSON file absend
     high_score = best_time = float('inf') 
-    
+
 count = 1 # Sets the counter variable for counting steps
 
 def display_records():
     print("\n{:>34}".format('**Leader Board**'))
     print('+----------+' + '---------------------+' * 2)
-    print('| Game     | Steps Record        | Time Record         |')
+    print('| {:8} | {:19} | {:19} |'.format('Game', 'Steps Record', 'Time Record'))
     keys = ("TWO", "THREE", "FOUR")
     for key in keys:
         try:
-            name1, high_score = records["high_scores"][key]  
+            name1, high_score = records["high_scores"][key]
             name2, best_time = records["best_times"][key]
         except:
             name1 = name2 = "--"
@@ -75,15 +75,15 @@ if game_on.lower() == 'reset':
     confirm = input("Are you sure? y or n: ")
     if confirm == 'y':
         keys = ("TWO", "THREE", "FOUR")
-        for rkey in keys:            
-            records["high_scores"][rkey] = ['--', 0] 
-            records["best_times"][rkey] = ['--', 0] 
-        with open(r'xCodeCracker/records.json', 'w') as file:        
-            json.dump(records, file, indent=2, sort_keys=True)    
+        for rkey in keys:
+            records["high_scores"][rkey] = ['--', 0]
+            records["best_times"][rkey] = ['--', 0]
+        with open(r'xCodeCracker/records.json', 'w') as file:
+            json.dump(records, file, indent=2, sort_keys=True)
         print('Records cleared...')     
     else:
-        print('\nRecords unchanged')  
-    
+        print('\nRecords unchanged')
+
     display_records()    
         
 else:

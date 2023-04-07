@@ -222,3 +222,6 @@ sudoku(board1)
 print('Board 1 time: ',time() - start1)
 
 board_var(board3)
+
+
+print("++++++++++++++++++\n" * 5)
