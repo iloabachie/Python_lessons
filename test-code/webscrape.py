@@ -30,7 +30,7 @@ stock_price = pd.DataFrame() # create empty dataframe
 tsla_stock = yf.download('TSLA', start_date, end_date)
 # print(tsla_stock)
 
-tsla_stock.to_csv('tesla')
+tsla_stock.to_csv('tesla.csv')
 # for ticker in stock_list:
 #     price = yf.download(ticker, start_date, end_date)
 #     price['Symbol'] = ticker

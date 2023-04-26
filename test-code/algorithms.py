@@ -80,9 +80,6 @@ a = b
 b = c
 
 
-
-
-
 # a, b = b, a
 print('a: ', a, 'b: ', b )
 print([*'hello'])
@@ -99,11 +96,6 @@ print(*range(5))
 for item in my_gen():
     print(item)
     
-    
-    
-    
-
-
 
 class TreeNode:
     def __init__(self, key, left=None, right=None):
@@ -119,3 +111,19 @@ node0 = TreeNode(8, node2, node3)
 tree = node0
 
 print(tree.key, tree.left.key, tree.right.key, tree.left.left, tree.right.right)
+
+print(time())
+globals()['ude'] = 12
+print(globals()['ude'])
+print(globals())
+print(globals()['ude'])
+
+
+def new():
+    x = 6
+    print(f'{locals()=}', '\n', f'{globals()=}', '\n', f'{vars()=}')
+    
+new()
+print(locals())
+
+print(vars() == globals() == locals())

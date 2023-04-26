@@ -1,14 +1,17 @@
 import random
 import json
 import time
+import os
 
-print("\n{:^57}".format('Welcome to CODE BREAKER'))  
+os.system('clear')
+
+print("\n{:^57}".format('Welcome to CODE BREAKER')), time.sleep(1.3)
 print("""=========================================================
                     ***CLUES***
 MATCH: at least one correct digit in the correct position
 CLOSE: at least one correct digit but in wrong position
 NOPE:  no correct digit in guess
-=========================================================""")
+========================================================="""), time.sleep(1)
 
 # Captures player name
 while True:
@@ -29,9 +32,10 @@ while True:
         print("Error. Choose a number between 2 and 4 inclusive")    
 
 # Sets the key value for keeping high score
-if num_digits == 2: key = 'TWO'
-if num_digits == 3: key = 'THREE'
-if num_digits == 4: key = 'FOUR'
+match num_digits:
+    case 2: key = 'TWO'
+    case 3: key = 'THREE'
+    case 4: key = 'FOUR'
 
 # Picks a random code with the number of specified digits       
 pc_code = "".join(random.sample([str(_) for _ in range(10)], num_digits))
@@ -67,8 +71,13 @@ def display_records():
         print('| {:8} | {:8} |{:9d} | {:8} |{:6d}:{:02d} |'.format(key, name1, high_score, name2, minute, sec))
     print('+----------' * 5 + '+\n')
 
-display_records()
+def printing(text, delay=0.05):
+    for _ in range(len(text)):
+        print(text[:_ + 1], end='\r'), time.sleep(delay)
+    print()
 
+display_records()   
+    
 game_on = input("Press 'Enter' to start or type 'reset' to clear score record: ")  # Ensures that timer only starts counting when player is ready
 
 if game_on.lower() == 'reset':
@@ -83,7 +92,6 @@ if game_on.lower() == 'reset':
         print('Records cleared...')     
     else:
         print('\nRecords unchanged')
-
     display_records()    
         
 else:
@@ -109,6 +117,7 @@ else:
         else:
             print(f"Guess Error, guess must contain {num_digits} distinct numbers")
 
+
     if guess.lower() != 'quit':
         end = round(time.time() - start)  # Captures end time
         minute, sec = divmod(end, 60)
@@ -117,14 +126,15 @@ else:
 
         # Saves only the fastest score or time in JSON file    
         with open(r'xCodeCracker/records.json', 'w') as file:
+            also = "ALSO " if (high_score == 0 or count < high_score) and (best_time == 0 or end < best_time) else ""
             if high_score == 0 or count < high_score:
                 high_score = count 
                 records["high_scores"][key] = [player, high_score]
-                print(f"**Congratulations {player}!!! New steps record for '{key}'")  
+                printing(f"**Congratulations {player}!!! You broke the steps record for '{key}'")  
             if best_time == 0 or end < best_time:
                 best_time = end 
                 records["best_times"][key] = [player, best_time]
-                print(f"**Congratulations {player}!!! New time record for '{key}'")  
+                printing(f"**Congratulations {player}!!! You {also}broke the time record for '{key}'")  
             json.dump(records, file, indent = 2, sort_keys=True)  
 
     display_records()

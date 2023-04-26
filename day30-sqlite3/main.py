@@ -4,7 +4,7 @@ from Pass_gen05 import pass_gen
 import pyperclip
 import sqlite3
 
-con = sqlite3.connect(r'./day30-sqlite3/passwords.db')
+con = sqlite3.connect(r'D:\Documents\Python lessons\AngelaYu\day30-sqlite3\data_base.db')
 cur = con.cursor()
 
 cur.execute('CREATE TABLE IF NOT EXISTS passwords(Website TEXT PRIMARY KEY, Address TEXT, Username TEXT, Password TEXT)')
@@ -17,8 +17,8 @@ def delete_item():
             primary_key = f'{website}'
             cur.execute('SELECT * FROM passwords WHERE Website = ?', (primary_key,))
             row = cur.fetchone()     
-            print(row) 
-            print("********************")      
+            # print(row) 
+            # print("********************")      
             if row == None:
                 raise Exception
             cur.execute('DELETE FROM passwords WHERE Website = ?', (primary_key,))

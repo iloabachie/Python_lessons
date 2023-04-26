@@ -22,7 +22,6 @@ print('3', new_list)
 print('-----------------------')
 
 
-
 # # -------------------------------------
 class Animal:
     def __init__(self):
@@ -74,8 +73,6 @@ suzy.speak()
  
 # sparky = Labrador()
 # print(f"Sparky is {sparky.temperament}")
-
-
 
 
 # from collections import Counter
@@ -223,11 +220,6 @@ print('\nUnion (taking maximums):')
 print(c1 | c2)
 
 
-
-
-
-
-
 def square(nums: list):
     for _ in nums:
         x = _**2
@@ -367,7 +359,6 @@ except SyntaxError:
     print("Sorry, something went wrong...")
     
     
-    
 d = {}
 d[1] = 1
 d['hi'] = 2
@@ -477,11 +468,7 @@ code = 123
 
 print(f'{code} unblocked' if code in active_list else f'{code} blocked')
 
-
-
 print(1 if 1==1 else 0.5 if 2>1 else 1)
-
-
 
 
 import random
