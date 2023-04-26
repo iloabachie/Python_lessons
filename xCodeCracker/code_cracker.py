@@ -3,28 +3,37 @@ import json
 import time
 import os
 
-os.system('clear')
+os.system('cls')
 
-print("\n{:^57}".format('Welcome to CODE BREAKER')), time.sleep(1.3)
+def printing(text, delay=0.05, new_line=True):
+    for _ in range(len(text)):
+        print(text[:_ + 1], end='\r'), time.sleep(delay)
+    if new_line: print()
+
+print()
+printing("{:^57}".format('Welcome to CODE BREAKER')), time.sleep(0.5)
 print("""=========================================================
                     ***CLUES***
 MATCH: at least one correct digit in the correct position
 CLOSE: at least one correct digit but in wrong position
 NOPE:  no correct digit in guess
-========================================================="""), time.sleep(1)
+=========================================================\n"""), time.sleep(1)
 
 # Captures player name
+printing('Enter your name: ', new_line=False)
 while True:
-    player = input('\nEnter your name: ')
+    player = input('Enter your name: ')
     if player.isalpha() and len(player) <= 8:
         player = player.capitalize()
+        print()
+        printing(f'Welcome to Code Breaker {player}')
         break
     else:
-        print("Invalid name. Must be max 8 characters and letters only")
+        print("Invalid name. Must be max 8 characters and letters only\n")
         
 # To get the number of digits of the Code to crack
 while True:
-    num_digits = input(f"\nWelcome {player}, enter number of digits to crack: ")
+    num_digits = input("\nEnter number of digits to crack: ")
     if num_digits.isnumeric() and 2 <= int(num_digits) <= 4:
         num_digits = int(num_digits)
         break
@@ -71,11 +80,6 @@ def display_records():
         print('| {:8} | {:8} |{:9d} | {:8} |{:6d}:{:02d} |'.format(key, name1, high_score, name2, minute, sec))
     print('+----------' * 5 + '+\n')
 
-def printing(text, delay=0.05):
-    for _ in range(len(text)):
-        print(text[:_ + 1], end='\r'), time.sleep(delay)
-    print()
-
 display_records()   
     
 game_on = input("Press 'Enter' to start or type 'reset' to clear score record: ")  # Ensures that timer only starts counting when player is ready
@@ -116,7 +120,6 @@ else:
             break
         else:
             print(f"Guess Error, guess must contain {num_digits} distinct numbers")
-
 
     if guess.lower() != 'quit':
         end = round(time.time() - start)  # Captures end time
