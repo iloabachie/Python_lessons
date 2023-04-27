@@ -143,7 +143,9 @@ while True:
         print()
         used_hint = True            
     elif guess.lower() == 'hint' and used_hint:
-        print("Sorry, you have used your hint")                
+        print("Sorry, you have used your hint")  
+    elif guess.lower() == 'python' and used_hint:
+        used_hint = False                     
     elif guess.lower() == 'quit':
         print()
         printing("Exiting game...")
