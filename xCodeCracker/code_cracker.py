@@ -43,7 +43,7 @@ while True:
         printing(f'Welcome Code Breaker {animate}{player}    ')
         break
     else:
-        print("Invalid name. Must be max 8 characters and letters only\n")
+        print("Invalid name. Must be maximum 8 characters and contain only letters\n")
         
 # To get the number of digits of the Code to crack
 while True:
@@ -120,7 +120,10 @@ game_on = input("\nPress 'Enter' to start Code Cracking: ")  # Ensures that time
 start = time.time()  # Sets start time
 while True:
     attempt = "attempt" if count == 1 else "attempts" 
-    guess = input(f"\nMake a {num_digits}-digit number guess or type hint or quit: ")    
+    if not used_hint:
+        guess = input(f"\nMake a {num_digits}-digit number guess, type hint or type quit: ")    
+    else:
+        guess = input(f"\nMake a {num_digits}-digit number guess or type quit: ")
     if guess.isnumeric() and len(guess) == num_digits and len(set(guess)) == num_digits:
         merge = [len(set(_)) for _ in zip(pc_code, guess)]
         if guess == pc_code:
@@ -143,7 +146,7 @@ while True:
         print()
         used_hint = True            
     elif guess.lower() == 'hint' and used_hint:
-        print("Sorry, you have used your hint")  
+        print("Sorry, you have used your hint") 
     elif guess.lower() == 'python' and used_hint:
         used_hint = False                     
     elif guess.lower() == 'quit':
