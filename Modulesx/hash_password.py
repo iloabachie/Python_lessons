@@ -2,8 +2,6 @@ from hashlib import pbkdf2_hmac
 import os
 
 
-
-
 def hashPassword():
     password = input("Password: ")
     salt = os.urandom(32)      

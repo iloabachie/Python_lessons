@@ -29,6 +29,12 @@ def prt(text):
     for x in text:
         print(x, end="", flush=True)
         time.sleep(0.05)
+        
+def flashprint(text, flashes=7, delay=0.2, stay=True):
+    for _ in range(flashes):
+        print(text, end=('\r')), time.sleep(delay)
+        print(' ' * len(text), end='\r'), time.sleep(delay)
+    if stay: print(text)
 
 
 # Code test
@@ -41,6 +47,7 @@ match __name__:
         prt("CLOSE: at least one correct digit but in wrong position")
         print()
         printing(texts, rev=True)
+        flashprint("This text is flashing")
 
 
 

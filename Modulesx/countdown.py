@@ -25,11 +25,11 @@ def loading1(t):
     if __name__ == '__main__':
         print('\nLoading Complete!')
 
-def loading2(t, display_text):
+def loading2(t, text='Loading...'):
     "Takes two arguments, time and text to display such as 'loading...'"
     load = ['-', '\\', '|', '/', ] * t
     for _ in load:
-        print(f"  {_}  {display_text}", end='\r')
+        print(f"  {_}  {text}", end='\r')
         time.sleep(0.5)
     if __name__ == '__main__':
         print('\nLoading Complete!')
