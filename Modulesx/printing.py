@@ -36,10 +36,17 @@ def flashprint(text, flashes=7, delay=0.2, stay=True):
         print(' ' * len(text), end='\r'), time.sleep(delay)
     if stay: print(text)
 
+def text_flash():
+    for _ in range(3):
+        print("You have chosen 'flashing text'", end="\r"), time.sleep(0.2)
+        print("You have chosen                ", end="\r"), time.sleep(0.2)
+    print("You have chosen 'flashing text'")
+
 
 # Code test
 match __name__:
     case "__main__": 
+        text_flash()
         texts = "CLOSE: at least one correct digit but in wrong position"
         printing("word by word printing for udemezue iloabachie", style='word', delay=0.5, rev=True)
         printing("letter by letter prin#####\b\b\b\b\bting for udemezue iloaba\bchie with new line false", 0.06, 'letter', False, True)
