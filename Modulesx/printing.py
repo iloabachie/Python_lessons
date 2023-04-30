@@ -50,11 +50,9 @@ def flashtext(phrase, text, blinks=5, index='end', delay=0.2, stay=True):
         time.sleep(delay)
         print(phrase1 + textb + phrase2, end='\r')
         time.sleep(delay)
-    if stay: 
-        print(phrase1 + text + phrase2)
+    if stay: print(phrase1 + text + phrase2)
         
 
-flashtext('This is the beginning .', 'text', index=13, delay=0.2, blinks=5)
 
 # Code test
 match __name__:
@@ -67,6 +65,7 @@ match __name__:
         print()
         printing(texts, rev=True)
         flashprint("This text is flashing")
+        flashtext('This is the beginning .', 'text', index=13, delay=0.2, blinks=5)
 
 
 

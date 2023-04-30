@@ -4,6 +4,7 @@ import time
 import os
 
 KEYS = ("2-DIGITS", "3-DIGITS", "4-DIGITS", "5-DIGITS")
+player_registered = False
 
 def printing(text, delay=0.07, new_line=True, rev=False):
     if not rev:
@@ -68,15 +69,16 @@ def display_records():
     print('+----------' * 5 + '+\n'), time.sleep(0.05)
 
 def player_capture():
-    global player, animate
+    global player, animate, player_registered
     printing('Enter your name: ', new_line=False) # Captures player name
     while True:
-        player = input('Enter your name: ')
+        player = input('Enter your name: ').strip()
         if player.isalpha() and len(player) <= 8:
             player = player.capitalize()
             print()
             animate = '#' * len(player) + '\b' * len(player)
             printing(f'Welcome to Code Breaker {animate}{player}    ')
+            player_registered = not player_registered
             break
         else:
             print("Invalid name. Must be maximum 8 characters and contain only letters")
@@ -105,7 +107,7 @@ def reset():
 def code_length():
     global num_digits, key
     while True:
-        num_digits = input("Choose the hidden code length: ")
+        num_digits = input("Choose the hidden code length: ").strip()
         if num_digits.isnumeric() and 2 <= int(num_digits) <= 5:
             num_digits = int(num_digits)
             break
@@ -120,96 +122,107 @@ def code_length():
     print()
 
 launch() 
-records_dict()
-display_records()
-player_capture()
-reset()
-code_length()
 
-### Game core ###
-try:
-    high_score = records["high_scores"][key][1]
-    best_time = records["best_times"][key][1]
-except:
-    high_score = best_time = float('inf')
-count = 1 # Sets the counter variable for counting steps
-used_hint = False
-pc_code = "".join(random.sample([str(_) for _ in range(10)], num_digits))
-start = time.time()  # Sets start time   
-
-input("\nPress 'Enter' to start Code Cracking: ")  # Ensures that timer only starts counting when player is ready
 while True:
-    attempt = "attempt" if count == 1 else "attempts"     
-    if not used_hint:
-        guess = input(f"\nMake a {num_digits}-digit number guess, type hint or type quit: ")    
-    else:
-        guess = input(f"\nMake a {num_digits}-digit number guess or type quit: ")
-    if guess.isnumeric() and len(guess) == num_digits and len(set(guess)) == num_digits:
-        merge = [len(set(_)) for _ in zip(pc_code, guess)]
-        if guess == pc_code:
-            break        
-        elif 1 in merge:
-            print(f"MATCH: {attempt}={count}")            
-        elif len(guess + pc_code) != len(set(guess + pc_code)):  
-            print(f"CLOSE: {attempt}={count}")           
+    records_dict()
+    display_records()
+    if not player_registered:
+        player_capture()
+    reset()
+    code_length()
+
+    ### Game core ###
+    try:
+        high_score = records["high_scores"][key][1]
+        best_time = records["best_times"][key][1]
+    except:
+        high_score = best_time = float('inf')
+    count = 1 # Sets the counter variable for counting steps
+    used_hint = False
+    pc_code = "".join(random.sample([str(_) for _ in range(10)], num_digits))
+    start = time.time()  # Sets start time   
+
+    input("\nPress 'Enter' to start Code Cracking: ")  # Ensures that timer only starts counting when player is ready
+    while True:
+        attempt = "attempt" if count == 1 else "attempts"     
+        if not used_hint:
+            guess = input(f"\nMake a {num_digits}-digit number guess, type hint or type quit: ").strip().lower()   
         else:
-            print(f"NOPE: {attempt}={count}")
-        count += 1
-    elif guess.lower() == 'hint' and not used_hint:
-        hint = input("  Adds 2 steps and provides a random digit.  Press 'Enter' to proceed or type no to cancel.")
-        if hint.lower() == 'no':
-            print("No hint. Continue...")
-        else:   
-            hint_index = random.randint(0, num_digits - 1) 
-            print("|", end="")
-            for _ in range(num_digits):                
-                if _ != hint_index:
-                    print("_", end="|")
-                else:
-                    print(pc_code[_], end="|")
+            guess = input(f"\nMake a {num_digits}-digit number guess or type quit: ").strip().lower()
+        if guess.isnumeric() and len(guess) == num_digits and len(set(guess)) == num_digits:
+            merge = [len(set(_)) for _ in zip(pc_code, guess)]
+            if guess == pc_code:
+                break        
+            elif 1 in merge:
+                print(f"MATCH: {attempt}={count}")            
+            elif len(guess + pc_code) != len(set(guess + pc_code)):  
+                print(f"CLOSE: {attempt}={count}")           
+            else:
+                print(f"NOPE: {attempt}={count}")
+            count += 1
+        elif guess == 'hint' and not used_hint:
+            hint = input("Adds 2 steps and provides a random digit.  Press 'Enter' to proceed or type no to cancel.").strip().lower()
+            if hint == 'no':
+                print("No hint. Continue...")
+            else:   
+                hint_index = random.randint(0, num_digits - 1) 
+                print("|", end="")
+                for _ in range(num_digits):                
+                    if _ != hint_index:
+                        print("_", end="|")
+                    else:
+                        print(pc_code[_], end="|")
+                print()
+                used_hint = True  
+                count += 2          
+        elif guess == 'hint' and used_hint:
+            print("Sorry, you have used your hint") 
+        elif guess == 'python' and used_hint:
+            used_hint = False  
+        elif guess == 'test':
+            flashprint(pc_code, delay=0.5, stay=False, flashes=1)
+        elif guess == 'quit':
             print()
-            used_hint = True  
-            count += 2          
-    elif guess.lower() == 'hint' and used_hint:
-        print("Sorry, you have used your hint") 
-    elif guess.lower() == 'python' and used_hint:
-        used_hint = False  
-    elif guess.lower() == 'test':
-        flashprint(pc_code, delay=0.5, stay=False, flashes=1)
-    elif guess.lower() == 'quit':
+            printing("Exiting game...")
+            break
+        else:
+            print(f"Guess Error, guess must contain {num_digits} distinct numbers")
+
+    if guess != 'quit':
+        end = round(time.time() - start)  # Captures end time
+        minute, sec = divmod(end, 60)
+        second = '{:02d}'.format(sec)
+        minute1 = "minute" if minute in [0, 1] else "minutes" 
+        second1 = "second" if sec in [0, 1] else "seconds" 
+        
         print()
-        printing("Exiting game...")
-        break
-    else:
-        print(f"Guess Error, guess must contain {num_digits} distinct numbers")
+        flashprint("     ***CODE CRACKED***", flashes=4)
+        printing(f"Completed in {count} {attempt} and took {minute} {minute1} and {second} {second1}")
 
-if guess.lower() != 'quit':
-    end = round(time.time() - start)  # Captures end time
-    minute, sec = divmod(end, 60)
-    second = '{:02d}'.format(sec)
-    minute1 = "minute" if minute in [0, 1] else "minutes" 
-    second1 = "second" if sec in [0, 1] else "seconds" 
+        # Saves only the fastest score or time in JSON file  
+        if (high_score == 0 or count < high_score):
+            records["high_scores"][key] = [player, count]         
+        if (best_time == 0 or end < best_time):
+            records["best_times"][key] = [player, end]
+            
+        if (high_score == 0 or count < high_score) and (best_time == 0 or end < best_time): 
+            printing(f"MASTER CODE BREAKER!!! {player}, you SMASHED the steps and time records for '{key}'")
+        else:
+            if high_score == 0 or count < high_score:
+                printing(f"**Congratulations {animate}{player}!!! You broke the steps record for '{key}'")  
+            if best_time == 0 or end < best_time:
+                printing(f"**Congratulations {animate}{player}!!! You broke the time record for '{key}'")         
+            
+        if (high_score == 0 or count < high_score) or (best_time == 0 or end < best_time):    
+            with open(r'xCodeCracker/records.json', 'w') as file:             
+                json.dump(records, file, indent = 2, sort_keys=True)  
+
+    display_records()
     
-    print()
-    flashprint("     ***CODE CRACKED***", flashes=4)
-    printing(f"Completed in {count} {attempt} and took {minute} {minute1} and {second} {second1}")
-
-    # Saves only the fastest score or time in JSON file  
-    if (high_score == 0 or count < high_score):
-        records["high_scores"][key] = [player, count]         
-    if (best_time == 0 or end < best_time):
-        records["best_times"][key] = [player, end]
-        
-    if (high_score == 0 or count < high_score) and (best_time == 0 or end < best_time): 
-        printing(f"MASTER CODE BREAKER!!! {player}, you SMASHED the steps and time records for '{key}'")
-    else:
-        if high_score == 0 or count < high_score:
-            printing(f"**Congratulations {animate}{player}!!! You broke the steps record for '{key}'")  
-        if best_time == 0 or end < best_time:
-            printing(f"**Congratulations {animate}{player}!!! You broke the time record for '{key}'")         
-        
-    if (high_score == 0 or count < high_score) or (best_time == 0 or end < best_time):    
-        with open(r'xCodeCracker/records.json', 'w') as file:             
-            json.dump(records, file, indent = 2, sort_keys=True)  
-
-display_records()
+    play_again = input("Press 'Enter' to play again or type 'quit' to exit game...").strip().lower()
+    
+    if play_again == 'quit':
+        break
+    os.system('cls')
+print()
+printing("Thank you for playing CODE BREAKER!!!")
