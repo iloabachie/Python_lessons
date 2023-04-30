@@ -22,6 +22,13 @@ def flashprint(text, flashes=5, delay=0.2, stay=True):
         print(' ' * len(text), end='\r'), time.sleep(delay)
     if stay: print(text)
 
+def flashtext(phrase, text, index=-1, flashes=3, delay=0.2):
+    textb = ' ' * len(text) 
+    for _ in range(flashes):
+        print(phrase[:index] + text + phrase[index:], end='\r'), time.sleep(delay)
+        print(phrase[:index] + textb + phrase[index:], end='\r'), time.sleep(delay)
+    print(phrase[:index] + text + phrase[index:])
+
 def launch():
     os.system('cls')
     print()
@@ -89,10 +96,10 @@ def reset():
             flashprint("    ...Records cleared...", flashes=2)
             display_records() 
         else:
-            flashprint('Records unchanged')    
+            flashprint('Records unchanged', flashes=2)    
     else:
         print()
-        flashprint('Records unchanged')  
+        flashprint('Records unchanged', flashes=2)  
     print(), time.sleep(1)
 
 def code_length():
@@ -109,10 +116,8 @@ def code_length():
         case 3: key = '3-DIGITS'
         case 4: key = '4-DIGITS'
         case 5: key = '5-DIGITS'  
-    for _ in range(3):
-        print(f"You have chosen '{key}'", end="\r"), time.sleep(0.2)
-        print("You have chosen           ", end="\r"), time.sleep(0.2)
-    print(f"You have chosen '{key}'")
+    flashtext("You have chosen  ", f"'{key}'")
+    print()
 
 launch() 
 records_dict()

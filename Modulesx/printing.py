@@ -36,17 +36,29 @@ def flashprint(text, flashes=7, delay=0.2, stay=True):
         print(' ' * len(text), end='\r'), time.sleep(delay)
     if stay: print(text)
 
-def text_flash():
-    for _ in range(3):
-        print("You have chosen 'flashing text'", end="\r"), time.sleep(0.2)
-        print("You have chosen                ", end="\r"), time.sleep(0.2)
-    print("You have chosen 'flashing text'")
+def flashtext(phrase, text, blinks=5, index='end', delay=0.2, stay=True):
+    textb = ' ' * len(text)
+    if index == 'end':
+        phrase1 = phrase
+        phrase2 = ''
+    else:
+        phrase1 = phrase[:index]
+        phrase2 = phrase[index:]
+    
+    for _ in range(blinks):
+        print(phrase1 + text + phrase2, end='\r')
+        time.sleep(delay)
+        print(phrase1 + textb + phrase2, end='\r')
+        time.sleep(delay)
+    if stay: 
+        print(phrase1 + text + phrase2)
+        
 
+flashtext('This is the beginning .', 'text', index=13, delay=0.2, blinks=5)
 
 # Code test
 match __name__:
     case "__main__": 
-        text_flash()
         texts = "CLOSE: at least one correct digit but in wrong position"
         printing("word by word printing for udemezue iloabachie", style='word', delay=0.5, rev=True)
         printing("letter by letter prin#####\b\b\b\b\bting for udemezue iloaba\bchie with new line false", 0.06, 'letter', False, True)
