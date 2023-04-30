@@ -30,6 +30,13 @@ def flashtext(phrase, text, index=-1, flashes=3, delay=0.2):
         print(phrase[:index] + textb + phrase[index:], end='\r'), time.sleep(delay)
     print(phrase[:index] + text + phrase[index:])
 
+def time_conv(time):
+    minute, sec = divmod(time, 60)
+    second = '{:02d}'.format(sec)
+    minute1 = "minute" if minute in [0, 1] else "minutes" 
+    second1 = "second" if sec in [0, 1] else "seconds" 
+    return f'{minute} {minute1} and {second} {second1}'
+
 def launch():
     os.system('cls')
     print()
@@ -43,7 +50,7 @@ def launch():
     print("NOPE:  no correct digit in your guess"), time.sleep(0.2)
     flashprint("=" * 57, flashes=1), time.sleep(1)
 
-def records_dict():
+def load_records():
     global records
     try: # Attempts to extract the records dictionary from JSON file
         with open(r'xCodeCracker/records.json', 'r') as file:
@@ -124,11 +131,11 @@ def code_length():
 launch() 
 
 while True:
-    records_dict()
+    load_records()
     display_records()
     if not player_registered:
         player_capture()
-    reset()
+        reset()
     code_length()
 
     ### Game core ###
@@ -180,6 +187,7 @@ while True:
         elif guess == 'python' and used_hint:
             used_hint = False  
         elif guess == 'test':
+            count += num_digits
             flashprint(pc_code, delay=0.5, stay=False, flashes=1)
         elif guess == 'quit':
             print()
@@ -188,16 +196,15 @@ while True:
         else:
             print(f"Guess Error, guess must contain {num_digits} distinct numbers")
 
-    if guess != 'quit':
+    if guess == "quit":
+        break    
+    else:
         end = round(time.time() - start)  # Captures end time
-        minute, sec = divmod(end, 60)
-        second = '{:02d}'.format(sec)
-        minute1 = "minute" if minute in [0, 1] else "minutes" 
-        second1 = "second" if sec in [0, 1] else "seconds" 
+        duration = time_conv(end)
         
         print()
         flashprint("     ***CODE CRACKED***", flashes=4)
-        printing(f"Completed in {count} {attempt} and took {minute} {minute1} and {second} {second1}")
+        printing(f"Completed in {count} {attempt} and took {duration}")
 
         # Saves only the fastest score or time in JSON file  
         if (high_score == 0 or count < high_score):
@@ -206,13 +213,18 @@ while True:
             records["best_times"][key] = [player, end]
             
         if (high_score == 0 or count < high_score) and (best_time == 0 or end < best_time): 
-            printing(f"MASTER CODE BREAKER!!! {player}, you SMASHED the steps and time records for '{key}'")
+            printing(f"MASTER CODE BREAKER!!! {player}, you SMASHED the steps and time records for '{key}'", new_line=False)
+            flashtext(f" {player}, you SMASHED the steps and time records for '{key}'", "MASTER CODE BREAKER!!!", index=0, flashes=6)
         else:
             if high_score == 0 or count < high_score:
                 printing(f"**Congratulations {animate}{player}!!! You broke the steps record for '{key}'")  
             if best_time == 0 or end < best_time:
                 printing(f"**Congratulations {animate}{player}!!! You broke the time record for '{key}'")         
-            
+            if not (high_score == 0 or count < high_score) or (best_time == 0 or end < best_time):
+                count_diff, time_diff = count - high_score, end - best_time
+                duration = time_conv(time_diff)
+                print(f"You missed the record for {key} by {count_diff} steps and {duration}")
+                
         if (high_score == 0 or count < high_score) or (best_time == 0 or end < best_time):    
             with open(r'xCodeCracker/records.json', 'w') as file:             
                 json.dump(records, file, indent = 2, sort_keys=True)  
@@ -226,3 +238,4 @@ while True:
     os.system('cls')
 print()
 printing("Thank you for playing CODE BREAKER!!!")
+print()

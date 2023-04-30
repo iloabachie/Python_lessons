@@ -53,7 +53,6 @@ def flashtext(phrase, text, blinks=5, index='end', delay=0.2, stay=True):
     if stay: print(phrase1 + text + phrase2)
         
 
-
 # Code test
 match __name__:
     case "__main__": 
