@@ -7,3 +7,19 @@ def timer(funct):
         funct(*args, **kwargs)
         print(f'** "{funct.__name__}" ran in {time() - start} seconds')
     return wrapper
+
+
+
+import shutil
+
+terminal_width, _ = shutil.get_terminal_size()
+
+print("Terminal width:", terminal_width, _)
+
+
+class Solution:
+    def maxOutput(self, n: int, edges: list[list[int]], price: list[int]) -> int:
+        pass
+
+
+hi = Solution()

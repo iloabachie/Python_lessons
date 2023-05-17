@@ -1,6 +1,6 @@
 import time
 
-def countdown(t):
+def countdown(t, confirm=True):
     '''Enter countdown time in seconds'''
     # t = int(input('Enter time in secs: '))
     while t:
@@ -9,10 +9,10 @@ def countdown(t):
         print(timer, end="\r")        
         time.sleep(1)
         t -= 1
-    if __name__ == '__main__':
+    if confirm:
         print('Timer completed!')
 
-def loading1(t):
+def loading1(t, confirm=True):
     x = t
     percent = 0
     for _ in range(t):        
@@ -20,19 +20,18 @@ def loading1(t):
         y = round(percent, 1) / 100
         print(f" Loading... [{'|||' * _}{'   ' * (x - _ - 1)}]", '{:4.0%}'.format(y), end="\r")
         time.sleep(0.2)
-        t -= 1
-    time.sleep(0.5)
-    if __name__ == '__main__':
-        print('\nLoading Complete!')
+        t -= 1    
+    if confirm:
+        print('\n Loading complete!')
 
-def loading2(t, text='Loading...'):
+def loading2(t, text='Loading...', confirm=False):
     "Takes two arguments, time and text to display such as 'loading...'"
     load = ['-', '\\', '|', '/', ] * t
     for _ in load:
         print(f"  {_}  {text}", end='\r')
         time.sleep(0.5)
-    if __name__ == '__main__':
-        print('\nLoading Complete!')
+    if confirm:
+        print('\nLoading complete!   ')
     
 def loading3(t):
     the_bar = "     ======     "
@@ -46,9 +45,12 @@ def loading3(t):
 
 if __name__ == '__main__':
     countdown(5)
+    print()
     loading1(20)  
-    loading2(10, 'thinking...')
-    loading3(10)
+    print()
+    loading2(5, 'thinking...')
+    print()
+    loading3(5)
   
 
    

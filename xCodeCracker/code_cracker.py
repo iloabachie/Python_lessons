@@ -86,8 +86,7 @@ def records_display():
     print()
     print("{:>34}".format('**Leader Board**')), time.sleep(0.05)
     print('+----------+' + '---------------------+' * 2), time.sleep(0.05)
-    print('| {:^8} | {:^19} | {:^19} |'.format(
-        'Game', 'Steps Record', 'Time Record')), time.sleep(0.05)
+    print('| {:^8} | {:^19} | {:^19} |'.format('Game', 'Steps Record', 'Time Record')), time.sleep(0.05)
     for key in KEYS:
         try:
             name1, high_score = records["high_scores"][key]
