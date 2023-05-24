@@ -14,12 +14,12 @@ import shutil
 
 terminal_width, _ = shutil.get_terminal_size()
 
-print("Terminal width:", terminal_width, _)
+if __name__ == "__main__":
+    print("Terminal width:", terminal_width, _)
 
 
-class Solution:
-    def maxOutput(self, n: int, edges: list[list[int]], price: list[int]) -> int:
-        pass
+import os
 
+print(os.get_terminal_size())
 
-hi = Solution()
+print(os.terminal_size())
