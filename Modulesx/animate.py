@@ -137,9 +137,9 @@ def star_square(num: int, symbol="#"):
 if __name__ == "__main__":
     printing("hello this should print letter by letter", delay=0.05, style="letter", stay=True, rev=False)
     printing("hello this should print word by word but in reverse", delay=0.05, style="word", stay=True, rev=True)
-    flashprint("The entire text should flash", flashes=5, delay=0.2, stay=True)
+    flashprint("The entire text should flash", blinks=5, delay=0.2, stay=True)
     flashtext("The text in  will flash", "UPPER CASE", blinks=5, index=12, delay=0.2)
     animate1("This text is animated with #", symbol="#")
     animate2("Prints letter by letter but masked with # first", symbol="#", delay=0.05)
-    text_box("C O D E  B R E A K E R", symbol="#", padding=True, wall=True, align="center")
+    text_box("C O D E  B R E A K E R", symbol="#", padding=True, wall=True, align="right")
     star_square(8, symbol="@")

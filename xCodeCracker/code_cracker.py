@@ -152,7 +152,8 @@ def code_length():
         case 3: key = '3-DIGITS'
         case 4: key = '4-DIGITS'
         case 5: key = '5-DIGITS'
-    flashtext("\nYou have chosen  ", f"'{key}'")
+    print()
+    flashtext("You have chosen  ", f"'{key}'")
 
 
 launch()
