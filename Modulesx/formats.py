@@ -5,6 +5,9 @@ if __name__ == "__main__":
     print("\nBackgrounds")
     for _ in range(256):
         print(f'\033[48;5;{_}m  ANSI escape sequence "\\033[48;5;{_}m"   \033[0m')
+    
+    import shutil
+    terminal_width, terminal_height = shutil.get_terminal_size()
 
 # Font Colors
 reset = '\033[0m'
