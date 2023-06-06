@@ -411,4 +411,47 @@ def kWeakestRows(mat, k: int):
     return [*map(itemgetter(0), sorted(enumerate([sum(_) for _ in mat]), key=itemgetter(1)))][:k]
 
 
-print(kWeakestRows(y, 3))        
+print(kWeakestRows(y, 3))      
+
+
+
+
+
+class Solution:
+    def calculate(self, s: str) -> int:
+        s = s.replace(" ", "")
+
+        # Stack to store the numbers and operators
+        stack = []
+        current_number = 0
+        sign = 1
+        result = 0
+
+        for char in s:
+            if char.isdigit():
+                current_number = (current_number * 10) + int(char)
+            elif char == "+":
+                result += sign * current_number
+                current_number = 0
+                sign = 1
+            elif char == "-":
+                result += sign * current_number
+                current_number = 0
+                sign = -1
+            elif char == "(":
+                stack.append(result)
+                stack.append(sign)
+                result = 0
+                sign = 1
+            elif char == ")":
+                result += sign * current_number
+                current_number = 0
+                result *= stack.pop()  # pop the sign
+                result += stack.pop()  # pop the previous result
+
+        result += sign * current_number
+        return result
+
+leet = Solution()
+
+print(leet.calculate("-(26+9)-1-(3-  9)+7"))  

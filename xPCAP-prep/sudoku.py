@@ -225,3 +225,13 @@ board_var(board3)
 
 
 print("++++++++++++++++++\n" * 5)
+
+
+
+"hello+hi".split()
+
+print(eval("5+6+3+8-8"))
+
+
+
+print(any([1,2,3,4,0]))
