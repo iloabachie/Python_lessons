@@ -19,4 +19,17 @@ print(type(person))
 
 print(person_from_birth_year.age, person_from_birth_year.name)
 
-print(datetime.__version__)
+
+
+
+
+import ConsolePrint.animate as prt
+
+
+
+prt.text_box("hello testing this", format='red_bg')
+
+
+prt.printing("animated text", format='green')
+
+prt.star_square(10, format="green_bg")

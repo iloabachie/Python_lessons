@@ -166,8 +166,7 @@ If the align parameter is a number then the box is indented by the number count"
             else:
                 print(" ", end="")  
             if col == length:
-                print()
-    print('\033[0m', end='\r')
+                print('\033[0m')
                 
                 
 def star_square(num: int, symbol: str="#", align: str='center', flush: bool=True, format: str='default'):
@@ -200,8 +199,7 @@ def star_square(num: int, symbol: str="#", align: str='center', flush: bool=True
             else:
                 print(" ", end="", flush=flush)              
             if col == num:
-                print()
-    print('\033[0m', end='\r')
+                print('\033[0m')
     
 
 def asteriskify(text: str, align: str="left", underscore: bool=False, format: str='default'):
