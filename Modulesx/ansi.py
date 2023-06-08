@@ -1,10 +1,10 @@
 if __name__ == "__main__":
-    for _ in range(108):
-        print(f'\033[{_}m  ANSI escape sequence "\\033[{_}m"    \033[0m')
+    for _ in range(0, 108, 2):
+        print(f'\033[{_}mANSI- "\\033[{_}m"\033[0m || \033[{_+1}mANSI- "\\033[{_+1}m"\033[0m')
         
     print("\nBackgrounds")
-    for _ in range(256):
-        print(f'\033[48;5;{_}m  ANSI escape sequence "\\033[48;5;{_}m"   \033[0m')
+    for _ in range(0, 256, 2):
+        print(f'\033[48;5;{_}mANSI- "\\033[48;5;{_}m"\033[0m || \033[48;5;{_+1}mANSI- "\\033[48;5;{_+1}m"\033[0m')
     
     import shutil
     terminal_width, terminal_height = shutil.get_terminal_size()
@@ -19,7 +19,6 @@ blue = '\033[34m'
 magenta = '\033[35m'
 cyan = '\033[36m'
 white = '\033[37m'
-
 
 # Text Formats
 bold = '\033[1m'

@@ -4,9 +4,7 @@ ALIGNMENT = 'center'
 FONT = ('Courier', 20, 'normal')
 
 class Score(Turtle):
-
-    def __init__(self):
-        
+    def __init__(self):        
         super().__init__()
         # global high
         self.score = 0

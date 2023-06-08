@@ -57,6 +57,4 @@ while game_on:
             scoreboard.reset()
             snake.snake_reset()
 
-
-
 screen.exitonclick()
