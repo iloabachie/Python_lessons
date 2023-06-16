@@ -1,11 +1,23 @@
 """This module  saves terminal output to file."""
 import sys
 import subprocess
+import time
+
+
+def __saving(t, text='Saving...', confirm=False):
+    "Takes two arguments, time and text to display such as 'loading...'"
+    load = ['-', '\\', '|', '/', '-'] * t
+    print()
+    for _ in load:
+        print(f"  {_}  {text}", end='\r')
+        time.sleep(0.4)
+    if confirm:
+        print('Saved!!!         ')
 
 def startConsoleSave():
     """Starts the process to save the output to file"""
     global filename
-    filename = input("Choose filename and extension: ") # specified filename/path      
+    filename = input("\nEnter the output filename and extension:\n>>  ") # specified filename/path      
     sys.stdout = open(filename, 'a')  # redirects output to specified file
 
 
@@ -13,8 +25,9 @@ def endConsoleSave():
     """Ends the save to file process and returns output to console"""  
     sys.stdout.close()
     sys.stdout = sys.__stdout__   # redirects output from file back to terminal
+    __saving(1, confirm=True)
     print(f"Output has been saved to {filename}")
-    open_file = input("Would you like to open the file? y/n: ")
+    open_file = input("\nWould you like to open the file? y/n: ")
     if open_file.strip().lower() == "y":
         try:
             subprocess.Popen(["start", "", filename], shell=True)

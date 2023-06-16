@@ -26,10 +26,10 @@ def loading1(t, confirm=True):
 
 def loading2(t, text='Loading...', confirm=False):
     "Takes two arguments, time and text to display such as 'loading...'"
-    load = ['-', '\\', '|', '/', ] * t
+    load = ['-', '\\', '|', '/'] * t
     for _ in load:
         print(f"  {_}  {text}", end='\r')
-        time.sleep(0.5)
+        time.sleep(0.4)
     if confirm:
         print('\nLoading complete!   ')
     

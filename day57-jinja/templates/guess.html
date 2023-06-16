@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ name.upper() }}</title>
+</head>
+<body>
+    <a href="{{ url_for('home_page') }}">Home</a>
+    <h1>Confirm Gender and Age</h1>
+    <form action="{{ url_for('guess_form') }}" method="post">
+        <input type="text" name="name" placeholder="Enter name to predict" required>
+        <input type="submit" value="Check details">
+    </form>
+    <p>The check was done on :  {{ name.title() }}</p>
+    <br>
+    <h3>Hello {{ name.capitalize() }}!</h3>
+    <table border=1px>
+        <thead>
+            <tr>
+                <th>I think you are <em>{{ gender }}</em></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>And you are {{ age }} years old</td>
+            </tr>
+            <tr>
+                <td>I am {{ probability * 100 }}% sure of this</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr>
+    <footer>© {{ year }} The copyright year</footer>
+</body>
+</html>

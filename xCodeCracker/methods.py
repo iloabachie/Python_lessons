@@ -58,24 +58,24 @@ def time_display(time, digits=True):
 
 def launch():
     os.system('cls')
-    print()
-    printing("{:>40}".format('Welcome to CODE BREAKER'),
-             delay=0.1, new_line=False, rev=True), time.sleep(0.3)
-    flashprint("{:^57}".format('Welcome to CODE BREAKER'),
-               delay=0.3, flashes=3), time.sleep(0.3)
-    print()
+    print('\033[36m')
+    printing("{:>40}".format('Welcome to CODE BREAKER'), delay=0.1, new_line=False, rev=True), time.sleep(0.3)
+    flashprint("{:^57}".format('Welcome to CODE BREAKER'), delay=0.3, flashes=3), time.sleep(0.3)
+    print("{:^57}".format("*" * len('Welcome to CODE BREAKER')))
+    print('\033[0m\r')
     print("=" * 57), time.sleep(0.1)
     print("{:^57}".format("***CLUES***")), time.sleep(0.2)
     print("MATCH: at least one correct digit in the correct position"), time.sleep(0.2)
     print("CLOSE: at least one correct digit but in wrong position"), time.sleep(0.2)
     print("NOPE:  no correct digit in your guess"), time.sleep(0.2)
     flashprint("=" * 57, flashes=1), time.sleep(1)
+    print()
 
 
 def load_records():
     global records
     try:  # Attempts to extract the records dictionary from JSON file
-        with open(r'xCodeCracker/records.json', 'r') as file:
+        with open('xCodeCracker/records.json', 'r') as file:
             records = json.load(file)
     except:  # Sets high score and best time to infinity if record does not exist or JSON file absend
         # Sets the dictionary of the records for first time play
@@ -127,7 +127,7 @@ def reset():
             for rkey in KEYS:
                 records["high_scores"][rkey] = ['--', 0]
                 records["best_times"][rkey] = ['--', 0]
-            with open(r'xCodeCracker/records.json', 'w') as file:
+            with open('xCodeCracker/records.json', 'w') as file:
                 json.dump(records, file, indent=2, sort_keys=True)
             time.sleep(0.5)
             flashprint("    ...Records cleared...", flashes=2)

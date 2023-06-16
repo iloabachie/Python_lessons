@@ -1,11 +1,12 @@
 from methods import *
 import random
+import datetime
 
-# launch()
+launch()
 
 while True:
     records = load_records()
-    # records_display()
+    records_display()
     if not player_registered:
         player, player_registered = player_capture()
         reset()
@@ -112,7 +113,7 @@ while True:
                 print(f"You missed the record for {key} by {count_diff} steps\nYou missed the time record by {duration}"), time.sleep(1.5)
 
         if (high_score == 0 or count < high_score) or (best_time == 0 or end < best_time):
-            with open(r'xCodeCracker/records.json', 'w') as file:
+            with open('xCodeCracker/records.json', 'w') as file:
                 json.dump(records, file, indent=2, sort_keys=True)
 
     records_display()
@@ -124,6 +125,6 @@ while True:
     os.system('cls')
 print()
 printing("Thank you for playing CODE BREAKER!!!")
-print('©2023\n')
+print(f'©{datetime.date.today().year}\n')
 
 
