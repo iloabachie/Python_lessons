@@ -10,6 +10,13 @@ if __name__ == "__main__":
 
 __terminal_width = os.get_terminal_size().columns
 
+class DimensionExceptionError(Exception):
+    """Custom error when the terminal width is too small"""
+    def __init__(self, error_message):
+        # self.error_message = error_message
+        super().__init__(error_message)
+    
+
 def __ansify_color(color:str):  
     match color:
         case 'default': color = '\033[0m'
@@ -35,7 +42,7 @@ def __ansify_color(color:str):
         case 'white_bg': color = '\033[47m'
         case _:
             if '[' not in color or color[-1] != 'm' or not color[2:3].isdigit():
-                raise Exception("Invalid ANSI escape sequence for argument format")
+                raise ValueError("Invalid ANSI escape sequence for argument format")
     return color
 
 def printing(text:str, delay:float=0.05, style:str='letter', stay:bool=True, rev:bool=False, format:str='default'):
@@ -106,7 +113,7 @@ def flashtext(phrase:str, text:str, index='end', blinks:int=5, delay:float=0.2, 
 def animate1(text:str, symbol:str="#", format:str='default'):
     """Flashing masked text to transition to flasing text"""
     if len(symbol) != 1:
-        raise Exception("Symbol input should be a single character")
+        raise ValueError("Symbol input should be a single character")
     format = __ansify_color(format)
     text = text.strip()
     symbol = len(text) * symbol
@@ -117,7 +124,7 @@ def animate1(text:str, symbol:str="#", format:str='default'):
 def animate2(text:str, symbol:str="#", delay:float=0.05, format:str='default'):
     """Reveals all characters text by text but first masked then flashes"""
     if len(symbol) != 1:
-        raise Exception("Symbol input should be a single character")
+        raise ValueError("Symbol input should be a single character")
     format = __ansify_color(format)
     print(format, end='\r')
     text = text.strip()
@@ -128,13 +135,13 @@ def animate2(text:str, symbol:str="#", delay:float=0.05, format:str='default'):
     flashprint(text, blinks=2, stay=True, format=format)
     print('\033[0m', end='\r')
 
-def text_box(text:str, symbol:str="#", spread:bool=False, padding:bool=False, wall:bool=True, align:str="center", format:str='default'):
+def text_box(text:str, symbol:str="#", spread:bool=False, padding:bool=False, wall:bool=True, align:str|int="center", format:str='default'):
     """Prints text in a box of symbols.
 If the align parameter is a number then the box is indented by the number count"""
     if spread:
         text = " ".join(list(text)).upper()
     if len(symbol) != 1:
-        raise Exception("Symbol input should be a single character")
+        raise ValueError("Symbol input should be a single character")
     format = __ansify_color(format)
     print(format, end='\r')
     text = text.strip()
@@ -148,7 +155,9 @@ If the align parameter is a number then the box is indented by the number count"
     elif align == "right": indent = __terminal_width - length
     elif align == "center": indent = __terminal_width//2 - length//2
     elif isinstance(align, int) and align <= (__terminal_width - length): indent = align
-    else: raise Exception(f"Error in the align argument: {align=}")  
+    else: 
+        print('\033[0m\r')
+        raise ValueError(f"Error in the align argument: {align=}")  
     
     for row in range(1, end + 1):
         for col in range(1, length + 1):
@@ -171,13 +180,14 @@ If the align parameter is a number then the box is indented by the number count"
                 print('\033[0m')
                 
                 
-def star_square(num:int, symbol:str="#", align:str='center', flush:bool=True, format:str='default'):
+def star_square(num:int, symbol:str="#", align:str|int='center', flush:bool=True, format:str='default'):
     if len(symbol) != 1:
         raise Exception("Symbol input should be a single character")
     format = __ansify_color(format)
     print(format, end='\r')
     if num < 5 or num > __terminal_width or not isinstance(num, int):
-        raise Exception(f"Invalid square size. Number must be an integer greater than 4 and less than the terminal width: {__terminal_width}")
+        print('\033[0m\r')
+        raise DimensionExceptionError(f"Invalid square size. Number must be an integer greater than 4 and less than the terminal width: {__terminal_width}")
     elif align == 'center':
         indent = '\033[0m' + (' ' * (__terminal_width//2 - num//2)) + format
     elif align == 'right':
@@ -187,7 +197,8 @@ def star_square(num:int, symbol:str="#", align:str='center', flush:bool=True, fo
     elif isinstance(align, int) and __terminal_width - align > num:
         indent = '\033[0m' + (" " * align) + format
     else:
-        raise Exception("Align parameter is invalid")    
+        print('\033[0m\r')
+        raise DimensionExceptionError("Check align parameter and square size with respect to terminal width")    
           
     for row in range(1, num + 1):
         time.sleep(0.04)
@@ -219,6 +230,7 @@ def asteriskify(text:str, align:str="center", underscore:bool=True, format:str='
     elif align == 'left':
         indent = ''
     else:
+        print('\033[0m\r')
         raise Exception("Align argument error") 
     print(indent + text)
     if underscore:
@@ -235,7 +247,7 @@ if __name__ == "__main__":
     animate1("This text is animated with #", symbol="#", format='magenta')
     animate2("Prints letter by letter but masked with # first  ", symbol="#", delay=0.05, format="\033[48;5;150m")
     text_box("code breaker", symbol="#", spread=True, padding=True, wall=True, align='center', format='\033[48;5;4m')
-    star_square(10, symbol="@", align=15, flush="True", format="\033[104m")
+    star_square(10, symbol="@", align=15, flush="True", format="strike")
     asteriskify(' This has been asteriskified  ', align='center', underscore=True, format='cyan')
     
     

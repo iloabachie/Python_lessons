@@ -166,4 +166,4 @@ def divide(dividend: int, divisor: int) -> int:
 
 # print(id(timer))
 
-console2file.endConsoleSave()
+console2file.endConsoleSave(False)

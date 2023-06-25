@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+<body>
+<div class="wrapper">
+    <div class="top">
+        <div class="title"><h1>My Blog</h1></div>
+    </div>
+
+    {% for blog in blog_data: %}
+        {% if blog['id'] == id: %}
+    <div class="content">
+        <div class="card">
+            <h2><strong>{{ blog['title'] }}</strong></h2>
+            <h3>{{ blog['subtitle'] }}</h3>
+            <p>{{ blog['body'] }}</p>
+            <br>
+
+            <div align='center'>
+            {% if id != 1: %}
+            <a href="{{ url_for('read_article', id=id-1) }}"><< prev</a>
+            <a> | </a>
+            {% endif %}
+            <a href="{{ url_for('home') }}">home</a>
+            {% if id != length: %}
+            <a> | </a>
+            <a href="{{ url_for('read_article', id=id+1) }}">next >></a>
+            {% endif %}
+            </div>
+
+        </div>        
+    </div>
+        {% endif %}
+    {% endfor %}
+
+</div>
+</body>
+<footer>
+    <p>© {{ year }} The Udemezue copyrights corporation.</p>
+</footer>
+</html>

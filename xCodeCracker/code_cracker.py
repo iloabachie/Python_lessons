@@ -87,8 +87,9 @@ while True:
         duration = time_display(end, digits=False)
         animate1 = '#' * len(player) + '\b' * len(player)
 
-        print()
+        print('\033[32m')
         flashprint("     ***CODE CRACKED***", flashes=4)
+        print('\033[0m\r')
         printing(f"Completed in {count} {attempt} and took {duration}"), time.sleep(1.5)
 
         # Saves only the fastest score or time in JSON file

@@ -1,28 +1,3 @@
-# def f(t):
-#     def g(t):
-#         def h():
-#             nonlocal t
-#             t += 1
-#             print(1)
-#         return h, lambda: t
-#     h, gt = g(0)
-#     print(2)
-#     return h, gt, lambda: t
-
-# h, gt, ft = f(0)
-# ft(), gt()
-# h()
-# ft(), gt()
-
-# def a():
-#     print('a')
-
-
-# c, b = a()
-
-# print(c, b)
-
-
 test = 'donor'
 longer = 'nabucodonosor'
 

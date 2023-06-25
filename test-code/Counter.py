@@ -32,6 +32,3 @@ print(3333333333333333333333, Counter(ordered) - Counter(nums))
 print("_________")
 
 
-
-print(globals())
-print()

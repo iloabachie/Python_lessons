@@ -40,7 +40,7 @@ def display_board():
     from os import system
     from time import sleep
     board = [ [3 * j + i + 1 for i in range(3)] for j in range(3) ]
-    board = [ ['-' for i in range(3)] for j in range(3) ]
+    # board = [ ['-' for i in range(3)] for j in range(3) ]
     system('cls')
     print("+-------" * 3,"+", sep=""), sleep(1)
     for row in range(3):
@@ -56,7 +56,7 @@ def display_board():
     print(board)
   
 
-# display_board()
+display_board()
 
 
 
