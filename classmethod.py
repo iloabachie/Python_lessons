@@ -4,6 +4,7 @@ class Person:
     def __init__(self, name, age):
         self.name = name
         self.age = age
+        self.zzz = "hello"
 
     @classmethod
     def from_birth_year(cls, name, birth_year):
@@ -12,6 +13,7 @@ class Person:
 
 person = Person("Alice", 25)
 person_from_birth_year = Person.from_birth_year("Bob", 1985)
+print(person_from_birth_year.age)
 
 
 print('\ ', type(person_from_birth_year), type(45), type("hello"), type(person))
@@ -22,8 +24,6 @@ response.raise_for_status()
 data = response.json() 
 print(type(data), len(data))
 print(data[0])
-
-
 
 
 from dataclasses import dataclass, field
@@ -78,7 +78,7 @@ class DimensionExceptionError(Exception):
         super().__init__(error_message)
         
 
-raise DimensionExceptionError
+raise DimensionExceptionError("this is the error")
 
 
 

@@ -1,27 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog!!!</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+
+{%  block title %}Blog!!! - All articles{%  endblock title %}
+
+{%  block inside_body %}
     <a href="{{ url_for('home_page') }}">Home</a>
     <p>Practicing the for statemetn in jinja</p>
-    {% for post in allposts: %}
-        <h3>{{ post['id'] }}: {{ post['title'] }}</h3>
-        <h4>{{ post['subtitle'] }}</h4>
+    {% for post in allposts %}
+        <h3>{{ post.id }}: {{ post.title }}</h3>
+        <h4>{{ post.subtitle }}</h4>
         <a href="{{ url_for('blog_display', num=post['id'])}}">Go to article</a>
     {% endfor %}
     <hr>
     <p>Practicing the if statemetn in jinja</p>
-    {% for post in allposts: %}
-        {% if post['id'] == 2: %}
-            <h3>{{ post['id'] }}: {{ post['title'] }}</h3>
-            <h4>{{ post['subtitle'] }}</h4>
+    {% for post in allposts %}
+        {% if post.id == 2 %}
+            <h3>{{ post.id }}: {{ post.title }}</h3>
+            <h4>{{ post.subtitle }}</h4>
         {% endif %}
     {% endfor %}
-    <hr>
-    <footer align=center>© {{ year }} The copyright year</footer>
-</body>
-</html>
+{%  endblock inside_body %}
+
+{% block year %}{{ year }}{% endblock year %}
+

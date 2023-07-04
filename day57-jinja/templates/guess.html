@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ name.upper() }}</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+
+{%  block title %}{{ name|upper|striptags }}{%  endblock title %}
+
+{%  block inside_body %}
     <a href="{{ url_for('home_page') }}">Home</a>
     <h1>Confirm Gender and Age</h1>
     <form action="{{ url_for('guess_form') }}" method="post">
@@ -30,7 +27,7 @@
             </tr>
         </tbody>
     </table>
-    <hr>
-    <footer>© {{ year }} The copyright year</footer>
-</body>
-</html>
+{%  endblock inside_body %}
+
+{% block year %}{{ year }}{% endblock year %}
+

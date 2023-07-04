@@ -38,9 +38,7 @@ class HashTable:
         # print(list_of_keys)
         return list_of_keys
                 
-            
-    
-
+ 
 my_hash_table = HashTable()
 
 my_hash_table.set_item("bolts", 1400)
@@ -75,7 +73,6 @@ for _ in building_items:
     my_hash_table.set_item(_, randint(200, 800))
 
 my_hash_table.print_table()
-
 
 print(my_hash_table.get_item("washers"))
 print(my_hash_table.get_item("pipes"))

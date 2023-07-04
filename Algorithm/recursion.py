@@ -22,7 +22,7 @@ class Solution:
             nums.pop(max_index)
         return False
 
-print(Solution().find132pattern(nums))
+# print(Solution().find132pattern(nums))
 
 # import timeit
 
@@ -60,7 +60,56 @@ class Solution:
         return False
     
 nums=[*range(10, -1, -1)]
-print(Solution().find132pattern(nums))
+# print(Solution().find132pattern(nums))
 
 
+import timeit
+import copy
 
+a = [*range(1000)]
+
+def one():
+    reversed([*range(1000)])    
+
+def two():
+    [*range(1000)][::-1]
+
+def tre():
+    [*range(1000)].reverse()
+
+# print(sum(timeit.repeat(stmt=one, repeat=10, number=100000))/10)
+# print(sum(timeit.repeat(stmt=two, repeat=10, number=100000))/10)
+# print(sum(timeit.repeat(stmt=tre, repeat=10, number=100000))/10)
+
+a=[1,2,3,4,5]
+
+a.reverse()
+print(a)
+
+x = 10
+
+
+def testing(x,y):   
+    print(y)
+    def inner():
+        nonlocal y
+        y = 23
+        def innerinner():
+            print(x, '|', y)
+            
+        innerinner()
+    print(y)
+    inner()
+    print(y)
+        
+testing(16,18)
+
+
+def check():
+    global zz
+    (zz:=16)
+    print(zz)
+
+# print(zz)
+check()
+print(zz)

@@ -63,3 +63,4 @@ print(my_tree.root.right.right.left.value)
 
 print(my_tree.contains(45))
 
+print(type(my_tree))

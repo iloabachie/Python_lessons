@@ -15,17 +15,21 @@ l_paddle = Paddle((-360, 0))
 ball = Ball()
 scores = Score()
 
-
-def pause_game():  #not working
-    global pause
-    pause = 5000 
+is_game_paused = False
+def pause_game():  # not working
+    global is_game_paused
+    is_game_paused = not is_game_paused
+    if is_game_paused:
+        time.sleep(10)
+        is_game_paused = not is_game_paused   
+      
         
 screen.listen()
 screen.onkey(r_paddle.go_up, 'Up')
 screen.onkey(r_paddle.go_down, 'Down')
 screen.onkey(l_paddle.go_up, 'w')
 screen.onkey(l_paddle.go_down, 's')
-screen.onkey(pause_game, 'space') # nto working
+screen.onkey(pause_game, 'space') # not working
 
 game_on = True
 max_score = 5
@@ -46,13 +50,13 @@ while game_on:
         ball.move()
         if ball.ycor() > 280 or ball.ycor() < -280:
             ball.ybounce()
-
-        # elif ball.xcor() == 400 or ball.xcor() == -400:
-        #     ball.xbounce()
-
-        # elif ball.xcor() == -400 and ball.distance(l_paddle) <= 250:
-        #     ball.xbounce()
-         
+        # ===============================
+        elif ball.xcor() == 400 or ball.xcor() == -400:
+            ball.xbounce()
+        # comment out this section
+        elif ball.xcor() == -400 and ball.distance(l_paddle) <= 250:
+            ball.xbounce()
+        # ================================
         elif ball.distance(l_paddle) <= 60 and ball.xcor() == (l_paddle.xcor() + 20) or ball.distance(r_paddle) <= 60 and ball.xcor() == (r_paddle.xcor() - 20):
             ball.xbounce()
         elif ball.xcor() < -460:
@@ -63,8 +67,3 @@ while game_on:
             ball.reset()
 
 screen.exitonclick()
-
-
-
-import time
-

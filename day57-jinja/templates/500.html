@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{%  block title %}Internal Server Error{%  endblock title %}
+
+{%  block inside_body %}
+
+<h1 align=center>Internal Server Error</h1>
+<p align =center>Error 500</p>
+<p align =center>{{ e }}</p>
+
+<br>
+{%  endblock inside_body %}
+
+{% block year %}{{ year }}{% endblock year %}

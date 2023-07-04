@@ -1,19 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Udemezue</title>
-</head>
-<body>
-    <h1>this is the head</h1>
-    <p>The Random num:  {{ num }}</p>
+{% extends 'layout.html' %}
 
-    <a href="{{ url_for('blog_page') }}">Go to Blogs</a>
-    <br>
-    <a href="{{ url_for('guess_page', name="udemezue") }}">Estimate your age and gender</a>
-    <br>
-    <br>
-    <footer>© {{ year }} The copyright year</footer>
-</body>
-</html>
+{%  block title %}Udemezue{%  endblock title %}
+
+{%  block inside_body %}
+<h1>this is the head</h1>
+<p>The Random num:  {{ num }}</p>
+
+<a href="{{ url_for('blog_page') }}">Go to Blogs</a>
+<br>
+<a href="{{ url_for('guess_page', name="udemezue") }}">Estimate your age and gender</a>
+<br>
+<p>{{ test|safe }}
+<br>
+{%  endblock inside_body %}
+
+{% block year %}{{ year }}{% endblock year %}

@@ -11,3 +11,4 @@ LICENSE.chromedriver
 /*/dist/
 /*/build/
 *.csv
+.gitignore
