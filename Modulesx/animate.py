@@ -45,7 +45,7 @@ def __ansify_color(color:str):
                 raise ValueError("Invalid ANSI escape sequence for argument format")
     return color
 
-def printing(text:str, delay:float=0.05, style:str='letter', stay:bool=True, rev:bool=False, format:str='default'):
+def printing(text:str, *, delay:float=0.05, style:str='letter', stay:bool=True, rev:bool=False, format:str='default'):
     """Prints text to console letter by letter or word by word"""
     format = __ansify_color(format)
     print(format, end='\r')
@@ -76,7 +76,7 @@ def printing(text:str, delay:float=0.05, style:str='letter', stay:bool=True, rev
     print('\033[0m', end='\r')
 
 
-def flashprint(text:str, blinks:int=5, delay:float=0.2, stay:bool=True, format:str='default'):
+def flashprint(text:str, *, blinks:int=5, delay:float=0.2, stay:bool=True, format:str='default'):
     """Gets printed output to blink"""
     format = __ansify_color(format)
     print(format, end='\r')
@@ -89,7 +89,7 @@ def flashprint(text:str, blinks:int=5, delay:float=0.2, stay:bool=True, format:s
     print('\033[0m', end='\r')
 
 
-def flashtext(phrase:str, text:str, index='end', blinks:int=5, delay:float=0.2, format:str='default'):
+def flashtext(phrase:str, text:str, *, index='end', blinks:int=5, delay:float=0.2, format:str='default'):
     """Hilights key word by flashing it"""
     format = __ansify_color(format)
     print(format, end='\r')
@@ -110,7 +110,7 @@ def flashtext(phrase:str, text:str, index='end', blinks:int=5, delay:float=0.2, 
     print('\033[0m', end='\r')
 
 
-def animate1(text:str, symbol:str="#", format:str='default'):
+def animate1(text:str, *, symbol:str="#", format:str='default'):
     """Flashing masked text to transition to flasing text"""
     if len(symbol) != 1:
         raise ValueError("Symbol input should be a single character")
@@ -121,7 +121,7 @@ def animate1(text:str, symbol:str="#", format:str='default'):
     flashprint(text, blinks=2, stay=True, format=format)
 
 
-def animate2(text:str, symbol:str="#", delay:float=0.05, format:str='default'):
+def animate2(text:str, *, symbol:str="#", delay:float=0.05, format:str='default'):
     """Reveals all characters text by text but first masked then flashes"""
     if len(symbol) != 1:
         raise ValueError("Symbol input should be a single character")
@@ -135,7 +135,7 @@ def animate2(text:str, symbol:str="#", delay:float=0.05, format:str='default'):
     flashprint(text, blinks=2, stay=True, format=format)
     print('\033[0m', end='\r')
 
-def text_box(text:str, symbol:str="#", spread:bool=False, padding:bool=False, wall:bool=True, align:str|int="center", format:str='default'):
+def text_box(text:str, *, symbol:str="#", spread:bool=False, padding:bool=False, wall:bool=True, align:str|int="center", format:str='default'):
     """Prints text in a box of symbols.
 If the align parameter is a number then the box is indented by the number count"""
     if spread:
@@ -180,7 +180,7 @@ If the align parameter is a number then the box is indented by the number count"
                 print('\033[0m')
                 
                 
-def star_square(num:int, symbol:str="#", align:str|int='center', flush:bool=True, format:str='default'):
+def star_square(num:int, *, symbol:str="#", align:str|int='center', flush:bool=True, format:str='default'):
     if len(symbol) != 1:
         raise Exception("Symbol input should be a single character")
     format = __ansify_color(format)
@@ -217,7 +217,7 @@ def star_square(num:int, symbol:str="#", align:str|int='center', flush:bool=True
                 print('\033[0m')
     
 
-def asteriskify(text:str, align:str="center", underscore:bool=True, format:str='default'):
+def asteriskify(text:str, *, align:str="center", underscore:bool=True, format:str='default'):
     format = __ansify_color(format)
     print(format, end='\r')
     text = text.strip()

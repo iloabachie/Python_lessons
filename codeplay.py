@@ -5,22 +5,20 @@ def display_board():
     board = [ [3 * j + i + 1 for i in range(3)] for j in range(3) ]
     # board = [ ['-' for i in range(3)] for j in range(3) ]
     system('cls')
-    print("+-------" * 3,"+", sep=""), sleep(1)
+    print("+-------" * 3,"+", sep=""), sleep(0.2)
     for row in range(3):
-        print("|       " * 3,"|", sep=""), sleep(1)
+        print("|       " * 3,"|", sep=""), sleep(0.2)
         for col in range(3):
-            print("|   " + str(board[row][col]) + "   ", end=""), sleep(1)
-        print("|"), sleep(1)
-        print("|       " * 3,"|",sep=""), sleep(1)
+            print("|   " + str(board[row][col]) + "   ", end=""), sleep(0.2)
+        print("|"), sleep(0.2)
+        print("|       " * 3,"|",sep=""), sleep(0.2)
         print("+-------" * 3,"+",sep="")
     print([3 * 0 + i + 1 for i in range(3)])
     print([3 * 1 + i + 1 for i in range(3)])
     print([3 * 2 + i + 1 for i in range(3)])
     print(board)
   
-
 display_board()
-
 
 
 def totalFruit(fruits) -> int:

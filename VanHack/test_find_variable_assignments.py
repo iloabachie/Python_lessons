@@ -12,7 +12,7 @@ def fn():
 """
         expected = ["str"]
         targets = dir(builtins)
-        print(find_variable_assignments(src, targets))
+        # print(find_variable_assignments(src, targets))
         self.assertCountEqual(find_variable_assignments(src, targets), expected)
         
     def test_ignores_edge_cases(self):
@@ -27,7 +27,7 @@ def fn():
 """
         expected = []
         targets = dir(builtins)
-        print(find_variable_assignments(src, targets))
+        # print(find_variable_assignments(src, targets))
         self.assertCountEqual(find_variable_assignments(src, targets), expected)
         
     def test_ignores_values(self):
@@ -39,7 +39,7 @@ def fn():
 """
         expected = ["next", "str"]
         targets = dir(builtins)
-        print(find_variable_assignments(src, targets))
+        # print(find_variable_assignments(src, targets))
         self.assertCountEqual(find_variable_assignments(src, targets), expected)
         
     def test_multiple_assignments(self):
@@ -50,14 +50,14 @@ str = 45
 """
         expected = ["next", "str", "dir", "list"]
         targets = dir(builtins)
-        print(find_variable_assignments(src, targets))
+        # print(find_variable_assignments(src, targets))
         self.assertCountEqual(find_variable_assignments(src, targets), expected)
         
     def test_single_parameter(self):
         src = "def reverse(str): return str[::-1]"
         expected = ["str"]
         targets = dir(builtins)
-        print(find_variable_assignments(src, targets))
+        # print(find_variable_assignments(src, targets))
         self.assertCountEqual(find_variable_assignments(src, targets), expected)
         
     def test_multiple_parameters(self):
@@ -71,7 +71,7 @@ def list(str, foo, iter):
 """
         expected = ["str", "list", "iter", "bin", "set", "dict"]
         targets = dir(builtins)
-        print(find_variable_assignments(src, targets))
+        # print(find_variable_assignments(src, targets))
         self.assertCountEqual(find_variable_assignments(src, targets), expected)
         
     def test_class_with_nested_fn(self):
@@ -80,9 +80,9 @@ class str:
     def __init__(self, list): 
         def next(foo, iter=42, baz=1): bin = 2
 """
-        expected = ["str", "list", "next", "iter", "bin"]
+        expected = ["str", "list", "next", "iter", "bi3n"]
         targets = dir(builtins)
-        print(find_variable_assignments(src, targets))
+        # print(find_variable_assignments(src, targets))
         self.assertCountEqual(find_variable_assignments(src, targets), expected)
 
 

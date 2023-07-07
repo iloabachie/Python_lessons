@@ -1,6 +1,7 @@
 lists = [1, 3, 2, 4, 1, 2, 3, 4, 5]
 
 dicttionary = dict.fromkeys(lists)
+# dicttionary = list(vars())
 print('2', dicttionary)
 new_list = list(dicttionary)
 print('3', new_list)
@@ -71,12 +72,12 @@ suzy.speak()
 
 # print(my_counter)
 
-# import timeit
-# print(timeit.timeit('"-".join(str(n) for n in range(100))', number=10000))
+import timeit
+print(timeit.timeit('"-".join(str(n) for n in range(100))', number=10000))
 
-# print(timeit.timeit('"-".join([str(n) for n in range(100)])', number=10000))
+print(timeit.timeit('"-".join([str(n) for n in range(100)])', number=10000))
 
-# print(timeit.timeit('"-".join(map(str, range(100)))', number=10000))
+print(timeit.timeit('"-".join(map(str, range(100)))', number=10000))
 
 # one = "#".join(str(n) for n in range(5))
 
@@ -134,12 +135,12 @@ suzy.speak()
 
 seasons = ['Spring', 'Summer', 'Fall', 'Winter']
 def enumerat(sequence, start=0):
-    n = 0
+    n = start
     for elem in sequence:
         yield n, elem
         n += 1
     
-for i, j in enumerate(seasons):
+for i, j in enumerat(seasons):
     print(i, j)
 # dict comprehension
 
@@ -593,6 +594,81 @@ print(newlist)
 
 print(id(newlist), id(data))
 
-print(vars(copy))
+# print(vars(copy))
 
 
+class A:
+    def __init__(self):
+        print("Initializing A")
+
+class B:
+    def __init__(self):
+        print("Initializing B")
+
+class C(A, B):
+    def __init__(self):
+        super(B, self).__init__()  # Initializing only the B superclass
+        print("Initializing C")
+        # B.__init__(self)
+        # A.__init__(self)
+
+c = C()
+print("end")
+
+class A:
+    def __init__(self):
+        print("Initializing A")
+
+class B:
+    def __init__(self):
+        print("Initializing B")
+
+class C:
+    def __init__(self):
+        print("Initializing C")
+
+class D(A, B, C):
+    def __init__(self):
+        super().__init__() 
+        super().__init__() 
+        print("Initializing D")
+        # B.__init__(self)
+        # A.__init__(self)
+        # C.__init__(self)
+
+d = D()
+print(type(D.__mro__))
+print(D.__mro__)
+
+
+class A:
+    def __init__(self):
+        print("Initializing A")
+
+class B(A):
+    def __init__(self):
+        super(B, self).__init__()  # Initializing only the B superclass
+        print("Initializing B")
+
+class C(A):
+    def __init__(self):
+        super(C, self).__init__()  # Initializing only the C superclass
+        print("Initializing C")
+
+class D(B, C):
+    def __init__(self):
+        print("start")
+        super(B, self).__init__()  # Initializing only the B superclass
+        super(C, self).__init__()  # Initializing only the C superclass
+        print("Initializing D")
+
+
+
+# c = C()
+d = D()
+print(D.__mro__)
+
+import sys
+print(sys.implementation)#, 
+
+print(sys.getwindowsversion())#, sys.implementation, sys.stdout)

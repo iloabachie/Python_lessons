@@ -127,3 +127,4 @@ new()
 print(locals())
 
 print(vars() == globals() == locals())
+
