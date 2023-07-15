@@ -19,7 +19,7 @@ def autocorrect(text: str) -> str:
     return " ".join(list_of_words)
 
 
-msg = "you are not ready for me.  youuu. arent ready green u"
+msg = "you are not  u ready for me.  youuu. arent ready green u"
 
 
 print(autocorrect(msg))

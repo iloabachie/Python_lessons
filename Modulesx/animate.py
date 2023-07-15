@@ -1,5 +1,6 @@
 import time
 import os
+import re
 
 if __name__ == "__main__":
     os.system('cls')
@@ -15,7 +16,12 @@ class DimensionExceptionError(Exception):
     def __init__(self, error_message):
         # self.error_message = error_message
         super().__init__(error_message)
-    
+
+class FormatArgumentError(Exception):
+    """Incorrect ANSI sequence passed"""
+    def __init__(self, error_message):
+        # self.error_message = error_message
+        super().__init__(error_message)
 
 def __ansify_color(color:str):  
     match color:
@@ -41,8 +47,20 @@ def __ansify_color(color:str):
         case 'cyan_bg': color = '\033[46m'
         case 'white_bg': color = '\033[47m'
         case _:
-            if '[' not in color or color[-1] != 'm' or not color[2:3].isdigit():
-                raise ValueError("Invalid ANSI escape sequence for argument format")
+            pattern1 = r"^[\033[][0-2][0-9][0-9]m$"
+            pattern2 = r"^[\033[48;5;][0-2][0-9][0-9]m$"
+            
+            if re.match(pattern1, color):
+                print(1, re.match(pattern1, color))
+                pass
+            elif re.match(pattern2, color):
+                print(2, re.match(pattern2, color))
+                pass
+            else:
+                raise FormatArgumentError("Invalid ANSI escape sequence for argument format")
+            
+            # if '[' not in color or color[-1] != 'm' or not color[2:3].isdigit():
+            #     raise ValueError("Invalid ANSI escape sequence for argument format")
     return color
 
 def printing(text:str, *, delay:float=0.05, style:str='letter', stay:bool=True, rev:bool=False, format:str='default'):
@@ -134,6 +152,7 @@ def animate2(text:str, *, symbol:str="#", delay:float=0.05, format:str='default'
         time.sleep(delay)
     flashprint(text, blinks=2, stay=True, format=format)
     print('\033[0m', end='\r')
+
 
 def text_box(text:str, *, symbol:str="#", spread:bool=False, padding:bool=False, wall:bool=True, align:str|int="center", format:str='default'):
     """Prints text in a box of symbols.
@@ -240,16 +259,13 @@ def asteriskify(text:str, *, align:str="center", underscore:bool=True, format:st
 
 # Code test
 if __name__ == "__main__":
-    printing("hello this should print letter by letter      ", delay=0.05, style="letter", stay=True, rev=False, format='strike')
-    printing("hello this should print word by word but in reverse", delay=0.3, style="word", stay=True, rev=True, format='red')
-    flashprint("The entire text should flash", blinks=5, delay=0.2, stay=True, format='green')
-    flashtext("The text in  will flash", "UPPER CASE", blinks=5, index=12, delay=0.2, format='yellow')
-    animate1("This text is animated with #", symbol="#", format='magenta')
+    # printing("hello this should print letter by letter      ", delay=0.05, style="letter", stay=True, rev=False, format='strike')
+    # printing("hello this should print word by word but in reverse", delay=0.3, style="word", stay=True, rev=True, format='red')
+    # flashprint("The entire text should flash", blinks=5, delay=0.2, stay=True, format='green')
+    # flashtext("The text in  will flash", "UPPER CASE", blinks=5, index=12, delay=0.2, format='yellow')
+    # animate1("This text is animated with #", symbol="#", format='magenta')
     animate2("Prints letter by letter but masked with # first  ", symbol="#", delay=0.05, format="\033[48;5;150m")
-    text_box("code breaker", symbol="#", spread=True, padding=True, wall=True, align='center', format='\033[48;5;4m')
-    star_square(10, symbol="@", align=15, flush="True", format="strike")
-    asteriskify(' This has been asteriskified  ', align='center', underscore=True, format='cyan')
+    text_box("code breaker", symbol="#", spread=True, padding=True, wall=True, align='center', format='\033[43m')
+    # star_square(10, symbol="@", align=15, flush="True", format="strike")
+    # asteriskify(' This has been asteriskified  ', align='center', underscore=True, format='cyan')
     
-    
-
-

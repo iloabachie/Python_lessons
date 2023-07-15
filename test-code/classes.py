@@ -669,6 +669,6 @@ d = D()
 print(D.__mro__)
 
 import sys
-print(sys.implementation)#, 
+print(sys.implementation)
 
-print(sys.getwindowsversion())#, sys.implementation, sys.stdout)
+print(sys.getwindowsversion())
