@@ -47,14 +47,14 @@ def __ansify_color(color:str):
         case 'cyan_bg': color = '\033[46m'
         case 'white_bg': color = '\033[47m'
         case _:
-            pattern1 = r"^[\033[][0-2][0-9][0-9]m$"
-            pattern2 = r"^[\033[48;5;][0-2][0-9][0-9]m$"
+            pattern1 = r"^ [\033[][0-2][0-9][0-9]m$"
+            pattern2 = r"^ [\033[48;5;][0-2][0-9][0-9]m$"
             
-            if re.match(pattern1, color):
-                print(1, re.match(pattern1, color))
+            if re.fullmatch(pattern1, color):
+                print(1, re.search(pattern1, color))
                 pass
             elif re.match(pattern2, color):
-                print(2, re.match(pattern2, color))
+                print(2, re.search(pattern2, color))
                 pass
             else:
                 raise FormatArgumentError("Invalid ANSI escape sequence for argument format")

@@ -68,3 +68,12 @@ class Solution:
 
 
 print(Solution().maxConsecutiveAnswers("TTFTTTTFTFFFT"))
+
+
+import random
+
+for n in range(30):
+    print(random.normalvariate(0, 2.5))
+
+for n in range(30):
+    print(random.uniform(3, 8.9))  
