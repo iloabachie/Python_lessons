@@ -13,5 +13,4 @@ LICENSE.chromedriver
 *.csv
 .gitignore
 VanHack/
-/*/test_find_variable_assignments.py
-/*/find_variable_assignments.py
+

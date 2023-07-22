@@ -2,8 +2,8 @@ import time
 import os
 import re
 
-if __name__ == "__main__":
-    os.system('cls')
+if __name__ == "__main__": 
+    os.system('cls')   
     print('\033[0m', end="\r")
     print((terminal_size:=os.get_terminal_size()))
     print(f'{terminal_size.columns = }, {terminal_size.lines = }')
@@ -47,24 +47,19 @@ def __ansify_color(color:str):
         case 'cyan_bg': color = '\033[46m'
         case 'white_bg': color = '\033[47m'
         case _:
-            pattern1 = r"^ [\033[][0-2][0-9][0-9]m$"
-            pattern2 = r"^ [\033[48;5;][0-2][0-9][0-9]m$"
-            
-            if re.fullmatch(pattern1, color):
-                print(1, re.search(pattern1, color))
-                pass
-            elif re.match(pattern2, color):
-                print(2, re.search(pattern2, color))
-                pass
-            else:
+            pattern1 = "\\033\[(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])m"
+            pattern2 = "\\033\[48;5;(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])m"            
+            if not (re.fullmatch(pattern1, color) or re.fullmatch(pattern2, color)):
                 raise FormatArgumentError("Invalid ANSI escape sequence for argument format")
-            
-            # if '[' not in color or color[-1] != 'm' or not color[2:3].isdigit():
-            #     raise ValueError("Invalid ANSI escape sequence for argument format")
     return color
+
+def is_width_ok(*text_length):
+    if __terminal_width <= sum([*text_length]):
+        raise DimensionExceptionError("Terminal width is too small to display text output")
 
 def printing(text:str, *, delay:float=0.05, style:str='letter', stay:bool=True, rev:bool=False, format:str='default'):
     """Prints text to console letter by letter or word by word"""
+    is_width_ok(len(text))
     format = __ansify_color(format)
     print(format, end='\r')
     text = text.strip()
@@ -96,6 +91,7 @@ def printing(text:str, *, delay:float=0.05, style:str='letter', stay:bool=True, 
 
 def flashprint(text:str, *, blinks:int=5, delay:float=0.2, stay:bool=True, format:str='default'):
     """Gets printed output to blink"""
+    is_width_ok(len(text))
     format = __ansify_color(format)
     print(format, end='\r')
     text = text.strip()
@@ -109,6 +105,7 @@ def flashprint(text:str, *, blinks:int=5, delay:float=0.2, stay:bool=True, forma
 
 def flashtext(phrase:str, text:str, *, index='end', blinks:int=5, delay:float=0.2, format:str='default'):
     """Hilights key word by flashing it"""
+    is_width_ok(len(text), len(phrase), 1)
     format = __ansify_color(format)
     print(format, end='\r')
     textb = ' ' * len(text)
@@ -130,6 +127,7 @@ def flashtext(phrase:str, text:str, *, index='end', blinks:int=5, delay:float=0.
 
 def animate1(text:str, *, symbol:str="#", format:str='default'):
     """Flashing masked text to transition to flasing text"""
+    is_width_ok(len(text))
     if len(symbol) != 1:
         raise ValueError("Symbol input should be a single character")
     format = __ansify_color(format)
@@ -141,6 +139,7 @@ def animate1(text:str, *, symbol:str="#", format:str='default'):
 
 def animate2(text:str, *, symbol:str="#", delay:float=0.05, format:str='default'):
     """Reveals all characters text by text but first masked then flashes"""
+    is_width_ok(len(text))
     if len(symbol) != 1:
         raise ValueError("Symbol input should be a single character")
     format = __ansify_color(format)
@@ -161,23 +160,22 @@ If the align parameter is a number then the box is indented by the number count"
         text = " ".join(list(text)).upper()
     if len(symbol) != 1:
         raise ValueError("Symbol input should be a single character")
-    format = __ansify_color(format)
-    print(format, end='\r')
+    format = __ansify_color(format)    
     text = text.strip()
     end = 5 if padding else 3
     text_row = 3 if padding else 2
     length = len(text) + 8
     left_border = text_row - 1  if padding else text_row
     right_border = text_row + 1 if padding else text_row
-    
+    is_width_ok(len(text), 8, align if isinstance(align, int) else 0)
     if align == "left": indent = 0
     elif align == "right": indent = __terminal_width - length
     elif align == "center": indent = __terminal_width//2 - length//2
     elif isinstance(align, int) and align <= (__terminal_width - length): indent = align
     else: 
-        print('\033[0m\r')
         raise ValueError(f"Error in the align argument: {align=}")  
     
+    print(format, end='\r')
     for row in range(1, end + 1):
         for col in range(1, length + 1):
             if col == 1:
@@ -200,6 +198,7 @@ If the align parameter is a number then the box is indented by the number count"
                 
                 
 def star_square(num:int, *, symbol:str="#", align:str|int='center', flush:bool=True, format:str='default'):
+    is_width_ok(num)
     if len(symbol) != 1:
         raise Exception("Symbol input should be a single character")
     format = __ansify_color(format)
@@ -237,6 +236,7 @@ def star_square(num:int, *, symbol:str="#", align:str|int='center', flush:bool=T
     
 
 def asteriskify(text:str, *, align:str="center", underscore:bool=True, format:str='default'):
+    is_width_ok(len(text))
     format = __ansify_color(format)
     print(format, end='\r')
     text = text.strip()
@@ -259,13 +259,14 @@ def asteriskify(text:str, *, align:str="center", underscore:bool=True, format:st
 
 # Code test
 if __name__ == "__main__":
-    # printing("hello this should print letter by letter      ", delay=0.05, style="letter", stay=True, rev=False, format='strike')
-    # printing("hello this should print word by word but in reverse", delay=0.3, style="word", stay=True, rev=True, format='red')
-    # flashprint("The entire text should flash", blinks=5, delay=0.2, stay=True, format='green')
-    # flashtext("The text in  will flash", "UPPER CASE", blinks=5, index=12, delay=0.2, format='yellow')
-    # animate1("This text is animated with #", symbol="#", format='magenta')
-    animate2("Prints letter by letter but masked with # first  ", symbol="#", delay=0.05, format="\033[48;5;150m")
-    text_box("code breaker", symbol="#", spread=True, padding=True, wall=True, align='center', format='\033[43m')
-    # star_square(10, symbol="@", align=15, flush="True", format="strike")
-    # asteriskify(' This has been asteriskified  ', align='center', underscore=True, format='cyan')
+    # os.system('cls')
+    printing("hello this should print letter by letter      .....", delay=0.05, style="letter", stay=True, rev=False, format='strike')
+    printing("hello this should print word by word but in reverse", delay=0.3, style="word", stay=True, rev=True, format='red')
+    flashprint("The entire text should flash", blinks=5, delay=0.2, stay=True, format='green')
+    flashtext("The text in  will flash", "UPPER CASE", blinks=5, index=12, delay=0.2, format='yellow')
+    animate1("This text is animated with #", symbol="#", format='magenta')
+    animate2("Prints letter by letter but masked with # first  ", symbol="#", delay=0.05, format="\033[48;5;250m")
+    text_box("code breaker", symbol="#", spread=True, padding=True, wall=True, align=10, format='\033[43m')
+    star_square(10, symbol="@", align=5, flush="True", format="strike")
+    asteriskify(' This has been asteriskified  ', align='left', underscore=True, format='cyan')
     

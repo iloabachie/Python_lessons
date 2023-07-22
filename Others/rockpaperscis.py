@@ -1,57 +1,49 @@
 import random
 
-scissors = '''
-    _       ,/'
-   (_).  ,/'
-   __  ::
-  (__)'  `\.
-            `\.
-'''
-paper = '''                           
-           ___..__
-  __..--""" ._ __.'
-              "-..__
-            '"--..__";
- ___        '--...__"";
-    `-..__ '"---..._;"
-          """"----'       
-'''
-rock = '''
-                      _    ,-,    _
-                 ,--, /: :\/': :`\/: :\
-                |`;  ' `,'   `.;    `: |
-                |    |     |  '  |     |.
-                | :  |     |     |     ||
-                | :. |  :  |  :  |  :  | \
-                 \__/: :.. : :.. | :.. |  )
-                      `---',\___/,\___/ /'
-                           `==._ .. . /'
-                                `-::-'
-'''
+image = {
+    'scissors': r'''
+     _       ,/'
+    (_).  ,/'
+     __  ::
+    (__)'  `\.
+                `\.
+    ''',
+    'paper': r'''                           
+            ___..__
+    __..--""" ._ __.'
+                "-..__
+                '"--..__";
+    ___        '--...__"";
+        `-._   '"---..._;"
+            *===----'       
+    ''',
+    'rock': r'''
+           _    ,-,    _
+    ,--, /: :\/': :`\/:  \
+    |`;  ' `,'   `.;    `:\
+    |    |     |  '  |     |.
+    | :  |     |     |     ||
+    | :. |  :  |  :  |  :  | 
+     \__/: :.. : :.. | :.. |  )
+          `---',\___/,\___/ /'
+            `==._ .. . /'
+                    `-::-'
+    '''
+}
+    
+print(image['rock'], image['paper'], image['scissors'])
 
 user = input("choose rock, paper or scissors r p or s:")
-computer = random.choice(['r', 's', 'p'])
-graphic = [rock, paper, scissors]
+user = 'rock' if user=='r' else 'paper' if user=='p' else 'scissors'
+computer = random.choice(['rock', 'scissors', 'paper'])
 
 
 def is_win(player, opponent):
-    # return true if player wins
-    # r > s, s > p, p > r
-    # if player == 'r' or opponent == 'r':
-    #     player = rock
-    #     opponent = rock
     if player == opponent:
         return 'it is a tie'
-    elif (player == 'r' and opponent == 's') or (player == 's' and opponent == 'p') or (player == 'p' and opponent == 'r'):
+    elif (player[0] == 'r' and opponent[0] == 's') or (player[0] == 's' and opponent[0] == 'p') or (player[0] == 'p' and opponent[0] == 'r'):
         return 'you win'
-
-    # return False
     return 'you lose'
 
 
-print(f'user chose {user} computer chose {computer} therefore ')
-
-print(is_win(user, computer))
-
-
-# print(if 2 > 5 and 3 < 8)
+print(f'You chose\n{image[user]}\ncomputer chose\n{image[computer]}\ntherefore\n\n{is_win(user, computer)}')
