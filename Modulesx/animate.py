@@ -17,11 +17,13 @@ class DimensionExceptionError(Exception):
         # self.error_message = error_message
         super().__init__(error_message)
 
+
 class FormatArgumentError(Exception):
     """Incorrect ANSI sequence passed"""
     def __init__(self, error_message):
         # self.error_message = error_message
         super().__init__(error_message)
+
 
 def __ansify_color(color:str):  
     match color:
@@ -47,15 +49,17 @@ def __ansify_color(color:str):
         case 'cyan_bg': color = '\033[46m'
         case 'white_bg': color = '\033[47m'
         case _:
-            pattern1 = "\\033\[(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])m"
-            pattern2 = "\\033\[48;5;(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])m"            
+            pattern1 = "^\\033\[(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])m$"
+            pattern2 = "^\\033\[48;5;(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])m$"           
             if not (re.fullmatch(pattern1, color) or re.fullmatch(pattern2, color)):
                 raise FormatArgumentError("Invalid ANSI escape sequence for argument format")
     return color
 
+
 def is_width_ok(*text_length):
     if __terminal_width <= sum([*text_length]):
         raise DimensionExceptionError("Terminal width is too small to display text output")
+
 
 def printing(text:str, *, delay:float=0.05, style:str='letter', stay:bool=True, rev:bool=False, format:str='default'):
     """Prints text to console letter by letter or word by word"""

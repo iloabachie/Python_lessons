@@ -112,6 +112,3 @@ def check():
 check()
 print(zz)
 
-
-import recursion
-recursion.testing(16,18)
