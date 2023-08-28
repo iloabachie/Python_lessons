@@ -1,7 +1,3 @@
-from regex import imported 
-print(len(imported))
-
-
 import threading
 from timeit import timeit
 
@@ -85,12 +81,22 @@ class Solution2:
         return any(results)
 
 
-print(Solution().containsNearbyAlmostDuplicate(imported, 350, 100))
-print(timeit(stmt=Solution().containsNearbyAlmostDuplicate(imported, 35000, 100), number= 3))        
-nums = imported[:500]
-valueDiff = 100
-indexDiff = 35000
+   
+nums = [*range(150)]
+valueDiff = 16
+indexDiff = 35
+
+print(dir(threading))
+# print(timeit(stmt=Solution1().containsNearbyAlmostDuplicate, number= 3))
+# print(timeit(stmt=Solution2().containsNearbyAlmostDuplicate, number= 3))
 
 
-print(timeit(stmt=Solution1().containsNearbyAlmostDuplicate, number= 300))
-print(timeit(stmt=Solution2().containsNearbyAlmostDuplicate, number= 300))
+h = [1,2,3]
+
+def stcopy():
+    y = h[:]
+def stcopy1():
+    y = h.copy()
+
+print(timeit(stmt=stcopy))
+print(timeit(stmt=stcopy1))

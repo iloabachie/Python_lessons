@@ -24,11 +24,12 @@ while True:
     count = 0  # Sets the counter variable for counting steps
     hint_count = 3 if num_digits == 5 else 2 if num_digits == 4 else 1 if num_digits == 3 else 0
     
-    pc_code = "".join(random.sample([str(_) for _ in range(10)], num_digits))
-    start = time.time()  # Sets start time
+    pc_code = "".join(random.sample([str(_) for _ in range(10)], num_digits))    
 
     # Ensures that timer only starts counting when player is ready
     input("\nPress \033[46m'Enter'\033[0m to start Code Cracking: ")
+    start = time.time()  # Sets start time
+    
     while True:
         attempt = "attempt" if count == 1 else "attempts"
         if hint_count != 0:

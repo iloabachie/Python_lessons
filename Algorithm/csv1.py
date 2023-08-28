@@ -77,6 +77,6 @@ return_file.close()
 class Solution:
     def fourSum(self, nums: list[int], target: int) -> list[list[int]]:
         e=enumerate(nums)
-        return [[a, b, c, d] for i, a in e for j, b in e for k, c in e for l, d in e if len(set([i,j,k,l]))==4 and a+b+c+d = target]
+        return [[a, b, c, d] for i, a in e for j, b in e for k, c in e for l, d in e if len(set([i,j,k,l]))==4 and a+b+c+d == target]
     
 
