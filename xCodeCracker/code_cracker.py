@@ -131,7 +131,5 @@ while True:
     os.system('cls')
 print('\033[36m')
 printing("Thank you for playing CODE BREAKER!!!")
-print(f'©{datetime.date.today().year}\n')
+print(f'©{datetime.date.today().year}')
 print("\033[0m")
-
-
