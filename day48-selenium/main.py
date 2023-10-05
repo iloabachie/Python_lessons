@@ -1,4 +1,4 @@
-from selenium import webdriver
+from selenium import webdriver # py -m pip install selenium
 import os, dotenv  # py -m pip install python-dotenv
 import time
 from selenium.webdriver.common.keys import Keys

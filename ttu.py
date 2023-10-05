@@ -136,9 +136,9 @@ class Solution:
                 break
         return ans    
     
-print(Solution().spiralOrder([[2,5,9],[8,4,6],[0,-1,8]]))
+# print(Solution().spiralOrder([[2,5,9],[8,4,6],[0,-1,8]]))
     
-print(Solution().spiralOrder([[1,2,3]*4,[4,5,6]*4,[7,8,9]*4,[4,5,6]*4,[4,5,6]*4]))
+# print(Solution().spiralOrder([[1,2,3]*4,[4,5,6]*4,[7,8,9]*4,[4,5,6]*4,[4,5,6]*4]))
 
 import os
 
@@ -234,7 +234,10 @@ dictionary = ["ox","lb","diz","gu","v","ksv","o","nuq","r","txhe","e","wmo","ceh
 
 s = "leetscode"
 dictionary = ["et","code","leetcode", 's']
-print(Solution().minExtraChar(s, dictionary))
+# print(Solution().minExtraChar(s, dictionary))
+
+import timeit
+# print(timeit.timeit(lambda: Solution().minExtraChar(s, dictionary)))
 import re
 pattern = r'^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
 print(re.match(pattern, "9.0.255.19"))

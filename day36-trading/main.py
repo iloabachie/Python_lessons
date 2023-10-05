@@ -1,5 +1,5 @@
 import requests
-from dotenv import load_dotenv
+from dotenv import load_dotenv # py -m pip install python-dotenv
 import os
 import json
 import datetime

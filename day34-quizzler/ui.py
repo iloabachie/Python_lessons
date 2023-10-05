@@ -1,10 +1,6 @@
 from tkinter import *
 from quiz_brain import QuizBrain
 
-
-
-
-
 THEME_COLOR = "#375362"
 
 class QuizInterface:
@@ -66,8 +62,7 @@ class QuizInterface:
         self.one = self.quiz.check_answer(user_answer)
         self.score_label.config(text=f'Score: {self.quiz.score}/{self.quiz.question_number}')
         self.feedback()            
-            
-        
+                
             
     def feedback(self):
         

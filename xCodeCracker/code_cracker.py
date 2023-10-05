@@ -102,7 +102,7 @@ while True:
             records["best_times"][key] = [player, end]
 
         if (high_score == 0 or count < high_score) and (best_time == 0 or end < best_time):
-            print('\033[42m')
+            print('\033[33m')
             printing(f"MASTER CODE BREAKER!!! {player}, you SMASHED the steps and time records for '{key}'", new_line=False)
             flashtext(f" {player}, you SMASHED the steps and time records for '{key}'", "MASTER CODE BREAKER!!!", index=0, flashes=6)
             print('\033[0m')
@@ -129,7 +129,7 @@ while True:
     if play_again == 'quit':
         break
     os.system('cls')
-print('\033[36m')
+print('\033[35m')
 printing("Thank you for playing CODE BREAKER!!!")
 print(f'©{datetime.date.today().year}')
 print("\033[0m")

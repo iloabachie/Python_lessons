@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 from Pass_gen05 import pass_gen
-import pyperclip
+import pyperclip # py -m pip install pyperclip
 import sqlite3
 
 con = sqlite3.connect(r'D:\Documents\Python lessons\AngelaYu\day30-sqlite3\data_base.db')
