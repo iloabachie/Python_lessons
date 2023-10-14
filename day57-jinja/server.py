@@ -42,7 +42,7 @@ def guess_page(name):
 @app.route('/processed_form', methods=['POST'])
 def guess_form(): 
     name = request.form.get('name')  # can use this or the method below to tap into the form data that is dictionary like
-    name = request.form['name']
+    # name = request.form['name']
     print(1111111111, type(request.form), request.form)
     response = requests.get(f"https://api.genderize.io?name={name}")
     response.raise_for_status()

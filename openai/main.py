@@ -25,7 +25,7 @@ def chat_with_gpt_turbo(prompt):
             {"role": "assistant", "content": "I can help you with canadian French translations"} # Here make model provide answers in Canadian french.
             ],
         temperature=0.7, # Adjust temperature for creativity 0 - 1
-        # stream=True#, #mimic the webbased gpt iterative fluidity. makes answer a generator object
+        stream=False,  # mimic the webbased gpt iterative fluidity. makes answer a generator object
         # max_tokens=50  # Adjust max output tokens as needed
         )
     print(completion)

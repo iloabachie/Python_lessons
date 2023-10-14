@@ -20,19 +20,22 @@ post_class = []
 for post in posts:
     post_class.append(Post(post['id'], post['title'], post['subtitle'], post['body']))
 
-for _ in post_class:
-    print(_)
 
 
-for x in range(2):
-    if x % 2 == 1:
-        ConsolePrint.startConsoleSave()
+if __name__ == "__main__":  
+    print(post_class) 
     for _ in post_class:
-        print(x, "============================================")
-        print(_.id)
-        print(_.title)
-        print(_.subtitle)
-        print(_.body)
-        print(x, "============================================")
-    if x % 5 == 1:
-        ConsolePrint.endConsoleSave(prompt=False)
+        print(_)
+     
+    for x in range(2):
+        if x % 2 == 1:
+            ConsolePrint.startConsoleSave(name=r"day57-capstone\blog posts.txt")
+        for _ in post_class:
+            print(x, "============================================")
+            print(_.id)
+            print(_.title)
+            print(_.subtitle)
+            print(_.body)
+            print(x, "============================================")
+        if x % 2 == 1:
+            ConsolePrint.endConsoleSave(prompt=False)

@@ -1,8 +1,8 @@
 {% extends 'layout.html' %}
 
-{%  block title %}Udemezue{%  endblock title %}
+{% block title %}Udemezue{%  endblock title %}
 
-{%  block inside_body %}
+{% block inside_body %}
 <h1>this is the head</h1>
 <p>The Random num:  {{ num }}</p>
 
@@ -10,8 +10,8 @@
 <br>
 <a href="{{ url_for('guess_page', name="udemezue") }}">Estimate your age and gender</a>
 <br>
-<p>{{ test|safe }}
+<p>{{ test|safe }}</p>
 <br>
-{%  endblock inside_body %}
+{% endblock inside_body %}
 
 {% block year %}{{ year }}{% endblock year %}
