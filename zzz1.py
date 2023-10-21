@@ -38,3 +38,14 @@ def greet(name):
     print(f"Hello, {name}!")
 
 greet("John")
+
+
+
+import getpass
+
+def get_masked_password(prompt="Enter your password: "):
+    return getpass.getpass(prompt)
+
+if __name__ == "__main__":
+    password = get_masked_password()
+    print(f"You entered: {password}")

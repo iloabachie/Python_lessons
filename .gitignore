@@ -13,4 +13,5 @@ LICENSE.chromedriver
 *.csv
 .gitignore
 VanHack/
+angela_virtual/
 
