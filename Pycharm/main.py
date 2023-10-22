@@ -1,5 +1,5 @@
 import matplotlib
-from prettytable import PrettyTable
+from prettytable import PrettyTable   # py -m pip install prettytable
 from turtle import Turtle, Screen
 
 timmy = Turtle()

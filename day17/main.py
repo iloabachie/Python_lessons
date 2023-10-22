@@ -24,11 +24,11 @@ class Question:
 question_bank = []
 for q_set in question_data:
     question_bank.append(Question(q_set['text'], q_set['answer']))
-# print(question_bank)
+print(question_bank)
 
 
 class QuizBrain:
-    def __init__(self, q_list):
+    def __init__(self, q_list: list[Question]):
         self.question_number = 0
         self.question_list = q_list
         self.score = 0
@@ -43,21 +43,22 @@ class QuizBrain:
     def still_has_questions(self):
         return self.question_number < len(self.question_list)
 
-    def check_answer(self, user_answer, correct_answer):
+    def check_answer(self, user_answer: str, correct_answer: str):
         if user_answer.lower() == correct_answer.lower():
             print('right')
             self.score += 1
 
         else:
             print('wrong')
-        print(f'the correct answer was: {correct_answer}')
+            print(f'the correct answer was: {correct_answer}')
         print(f'Your current score is: {self.score}/{self.question_number}\n')
 
 
-quiz = QuizBrain(question_bank)
+if __name__ == "__main__":
+    quiz = QuizBrain(question_bank)
 
-while quiz.still_has_questions():
-    quiz.next_question()
+    while quiz.still_has_questions():
+        quiz.next_question()
 
-print('Quiz completed')
-print(f'Your final score is: {quiz.score}/{quiz.question_number}')
+    print('Quiz completed')
+    print(f'Your final score is: {quiz.score}/{quiz.question_number}')

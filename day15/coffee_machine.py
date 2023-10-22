@@ -1,8 +1,8 @@
 import time
 import os
 import sys
-sys.path.append('D:\\Documents\\Python lessons\\AngelaYu\\Modulesx')
-from countdown import *
+sys.path.append('Modulesx')
+from loading import *
 
 
 def clear():    

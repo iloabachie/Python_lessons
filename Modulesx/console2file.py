@@ -52,8 +52,7 @@ if __name__ == "__main__":
     
     endConsoleSave(False)    
     
-    # Alternatively using the with keyword
+    # Alternatively using a context manager
     with open("output.txt", 'a') as sys.stdout:
         print("hello using with to open and close")
-
-    sys.stdout = sys.__stdout__
+    sys.stdout = sys.__stdout__    

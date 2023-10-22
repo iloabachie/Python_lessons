@@ -53,6 +53,7 @@ def draw_spir(gap):
 draw_spir(7)
 
 screen = t.Screen()
+
 screen.exitonclick()
 
 

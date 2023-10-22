@@ -2,8 +2,8 @@ import random
 from os import system
 from time import sleep
 import sys
-sys.path.append("D:\Documents\Python lessons\AngelaYu\Modulesx")
-from countdown import loading1, loading2, loading3
+sys.path.append("Modulesx")
+from loading import loading1, loading2, loading3
 
 system('cls')
 
