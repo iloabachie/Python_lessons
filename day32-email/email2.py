@@ -1,6 +1,8 @@
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from email.mime.image import MIMEImage
+from email.mime.application import MIMEApplication
 import dotenv
 import os
 
@@ -21,10 +23,23 @@ recipient_emails = ["udemezue@gmail.com", "udemezue@outlook.com", "ezue1@yahoo.c
 message = 'This message was sent from python using smtplib and email object'
 
 msg = MIMEMultipart()
+msg['From'] = "Udemezue"
 msg['To'] = ', '.join(recipient_emails)
 msg['Cc'] = "udemezue@gs.com"
 msg['Subject'] = 'A pythonic hello using the email object'
 msg.attach(MIMEText(message, 'plain'))
+
+# attach image
+with open('day32-email\Image.jpg', 'rb') as img_file:
+    image = MIMEImage(img_file.read(), name="letter.jpg")
+msg.attach(image)
+
+# attach pdf
+with open('day32-email\okoro.pdf', 'rb') as pdf_file:
+    pdf_attachment = MIMEApplication(pdf_file.read(), _subtype="pdf")
+    pdf_attachment.add_header('content-disposition', 'attachment', filename='new.pdf')
+msg.attach(pdf_attachment)
+
 
 try:
     server = smtplib.SMTP(smtp_server, smtp_port)
@@ -32,8 +47,7 @@ try:
     server.login(sender_email, sender_password)
     
     text = msg.as_string()
-    print(text)
-    # text = f'{subject}\n\n{message}'
+    # print(text)
     server.sendmail(sender_email, recipient_emails, text)
     
     print('Email sent successfully')
