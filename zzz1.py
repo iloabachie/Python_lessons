@@ -110,3 +110,42 @@ for word in random_words:
     gorupword.setdefault(word[0], []).append(word)
 
 print(gorupword)
+
+
+import functools
+
+@functools.cache
+def climbStairs(n: int) -> int:
+    @functools.cache
+    def count(n):
+        if n == 1:
+            return 1
+        if n == 2:
+            return 2
+        return count(n-1) + count(n-2)
+    return count(n)
+
+
+print(climbStairs(20))
+
+import time, icecream
+
+class Solution:
+    def numberOfMatches(self, n: int) -> int:
+        
+        total = 0
+        while n != 1:
+            time.sleep(0.3)
+            icecream.ic(n)
+            
+            if n % 2:
+                total += (x:=(n-1)//2)
+                n = x + 1
+            else:
+                n //= 2
+                icecream.ic(total)
+                total += n
+            icecream.ic(total)
+        return total or 1
+
+print(Solution().numberOfMatches(7))
