@@ -94,13 +94,13 @@ while True:
 
     if drawings % 156 == 0:
         years += 1
-        print(f' {years} years', end='\r')
+        print(f' {years:,} years', end='\r')
 
     if hit_jp:
         break
 
-print(f'\nSpent: ${total_spent}')
-print(f'Earnings: ${earnings}')
+print(f'\nSpent: ${total_spent:,}')
+print(f'Earnings: ${earnings:,}')
 
 print(json.dumps(times_won, indent=2))
 print(times_won)
