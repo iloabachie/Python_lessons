@@ -69,8 +69,6 @@ class Role(Enum):
 
 print(type(Role.president))
 
-
-
 class DimensionExceptionError(Exception):
     """Custom error when the terminal width is too small"""
     def __init__(self, error_message):
@@ -79,7 +77,4 @@ class DimensionExceptionError(Exception):
         
 
 raise DimensionExceptionError("this is the error")
-
-
-
 
