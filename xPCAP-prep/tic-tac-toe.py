@@ -1,8 +1,14 @@
-import random
+import random, sys
 from os import system
 from time import sleep
-import sys
+
 sys.path.append("Modulesx")
+
+# for p in sys.path:
+#   print(p)
+
+# sleep(99)
+
 from loading import loading1, loading2, loading3
 
 system('cls')
