@@ -42,11 +42,8 @@ def twist(string):
     return string
 
 
-
 print(twist(a+'\n'+b+'\n'+c+'\n'+d))
 # print(twist(d))
-
-
 
 
 class Solution:

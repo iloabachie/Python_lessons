@@ -56,7 +56,7 @@ array = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 array = [1,2,3,2,1,2,2,2,3]
 
 import sys
-sys.path.append(r"D:\Documents\Python lessons\AngelaYu\Modulesx")
+sys.path.append(r"Modulesx")
 
 import timerwrapper 
 import console2file
