@@ -1,8 +1,7 @@
 from random import choice, randint
-import sys, json, time
-sys.path.append('BlockChain')
+import time
 from chain_objects import BlockChain, Trader, Transfer
-from fake_data import generate_random_trader
+from user_gen import generate_random_trader
 
   
     

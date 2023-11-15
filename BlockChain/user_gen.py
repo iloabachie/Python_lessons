@@ -1,7 +1,4 @@
 from faker import Faker
-import sys
-sys.path.append('BlockChain')
-
 from chain_objects import Trader
 
 # Create a Faker instance

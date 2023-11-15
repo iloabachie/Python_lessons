@@ -1,14 +1,17 @@
 from tkinter import *
 from tkinter import messagebox
-from Pass_gen05 import pass_gen
+import sys
+sys.path.append("Modulesx")
+from passgen import pass_gen
 import pyperclip
 import json
 
 # ---------------------- PASSWORD GENERATOR ------------------------ #
+json_file_path = 'day30-json/logs.json'
 
 def delete_item():    
     try:
-        with open('./day30-updatte/logs.json', 'r') as file: 
+        with open(json_file_path, 'r') as file: 
             data = json.load(file)
     except FileNotFoundError:
         messagebox.showerror(title='File Missing', message='Contact Support on 123456789')
@@ -29,7 +32,7 @@ def delete_item():
                 messagebox.showinfo(title='Not found', message=f'{webname} data not found')
             else:
                 
-                with open('./day30-updatte/logs.json', 'w') as file:
+                with open(json_file_path, 'w') as file:
                     json.dump(data, file, indent=4)          
                 messagebox.showinfo(title='Deleted', message=f'Website: {website}\nWebAddress: {webaddress}\nUsername: {username}\nPassword{password}\nhas been removed')
                 
@@ -55,7 +58,7 @@ def clear_website():
 
 def search_data():
     try:
-        with open('./day30-updatte/logs.json', 'r') as file: 
+        with open(json_file_path, 'r') as file: 
             data = json.load(file)
     except FileNotFoundError:
         messagebox.showerror(title='File Missing', message='Contact Support on 123456789')
@@ -104,14 +107,14 @@ def save():
         is_ok = messagebox.askokcancel(title=website, message=f'Web address: {webaddress}\nUsername: {username}\nPassword: {password}')
         if is_ok:
             try:
-                with open('./day30-updatte/logs.json', 'r') as file: 
+                with open(json_file_path, 'r') as file: 
                     data = json.load(file)
                     data.update(new_data)
             except FileNotFoundError:
-                with open('./day30-updatte/logs.json', 'w') as file: 
+                with open(json_file_path, 'w') as file: 
                     json.dump(new_data, file, indent=4)
             else:
-                with open('./day30-updatte/logs.json', 'w') as file: 
+                with open(json_file_path, 'w') as file: 
                     json.dump(data, file, indent=4, sort_keys=True)
             finally:
                 website_entry.delete(0, END)
