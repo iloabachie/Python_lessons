@@ -22,7 +22,7 @@ def save():
     else:
         is_ok = messagebox.askokcancel(title=website, message=f'Username: {username}\nPassword: {password}')
         if is_ok:
-            with open('./day29-passman/password_log.txt', 'a') as file: 
+            with open('day29-passman/password_log.txt', 'a') as file: 
                 file.write(f'{website} | {username} | {password}\n')
             website_entry.delete(0, END)
             password_entry.delete(0, END)
@@ -35,7 +35,7 @@ window.title('Password Manager')
 window.config(padx=20, pady=20, bg='white')
 
 canvas = Canvas(width=200, height=200, bg='white', highlightthickness=0)
-lock_img = PhotoImage(file='./day29-passman/logo.png')
+lock_img = PhotoImage(file='day29-passman/logo.png')
 canvas.create_image(100, 100, image=lock_img)
 canvas.grid(column=1, row=0)
 
