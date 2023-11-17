@@ -1,4 +1,4 @@
-nums = [1, 1, 1,2,3,4,5,3,4,5,1,2]
+nums = [11,1, 1, 1,2,3,4,5,3,4,5,1,2]
 
 num_new = []
 
@@ -11,7 +11,6 @@ for i in num_set:
             num_new.append(i)
 
 print(num_new)
-
 
 # -------------------------------------------
 from random import randint
