@@ -101,14 +101,16 @@ class Transfer():
                 self.block_data = {
                     'Sender': self.sender.name,
                     'Recipient': self.receiver.name,
-                    'Amount': f'Successful {self.amount}',
+                    'Amount': self.amount,
+                    'Status': 'Successful',
                     'Reference': self.reference
                 }        
             else:
                 self.block_data = {
                     'Sender': self.sender.name,
                     'Recipient': self.receiver.name,
-                    'Amount': f'Insufficient funds {self.amount}',
+                    'Amount': self.amount,
+                    'Status': 'Failed',
                     'Reference': self.reference
                 } 
             self.chain.add_new_block(self.block_data)
