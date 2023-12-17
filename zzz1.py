@@ -149,3 +149,34 @@ class Solution:
         return total or 1
 
 print(Solution().numberOfMatches(7))
+
+
+
+class Custom(tuple):
+    def __lt__(self, other):
+        if self[0] != other[0]:
+            return self[0] < other[0]
+        return self[1] > other[1]
+
+
+print(dir(Custom))
+
+t1 = Custom((1, 'b'))
+t2 = Custom((1, 'a'))
+print(t1 < t2)
+
+class Custom(tuple):
+    def __lt__(self, other):
+        if self[0] != other[0]:
+            return self[0] < other[0]
+        else:
+            return self[1] > other[1]
+
+# Example usage:
+t1 = Custom((1, 3))
+t2 = Custom((1, 2))
+t3 = Custom((2, 5))
+
+result = sorted([t1, t2, t3])
+# print(result)  # Output: [(1, 2), (1, 3), (2, 5)]
+# print(t1 < t2)
