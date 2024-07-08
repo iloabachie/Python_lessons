@@ -93,10 +93,13 @@ class MySuperClass3:
 
 class MyClass(MySuperClass1, MySuperClass2, MySuperClass3):
     def __init__(self, arg1, arg2, arg3):
+        print('*************')
         super(MyClass, self).__init__(arg1)
+        super().__init__(arg1)
         super(MySuperClass1, self).__init__(arg2, arg1)
         super(MySuperClass2, self).__init__(arg3)
-        # super(MyClass.__mro__[1], self).__init__(arg3)
+        MySuperClass2.__init__(self, arg1, arg2)
+        print('****************')
  
 
     def method(self):

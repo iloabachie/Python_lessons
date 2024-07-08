@@ -28,7 +28,7 @@ finally:
 print(f'{response.status_code=}')
 
 ConsolePrint.startConsoleSave('weather/summitsx')
-print(json.dumps(weather, indent = 3))
+print(json.dumps(weather, indent=3))
 ConsolePrint.endConsoleSave(prompt=False)
 if response.status_code is not 200:
-    print(json.dumps(weather, indent = 3)) 
+    print(json.dumps(weather, indent=3)) 
