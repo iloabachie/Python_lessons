@@ -8,13 +8,13 @@ for year in range(1900, 2101, 4):
     if leap004 == 0:
         if leap100 == 0:
             if leap400 == 0:
-                print(f"leap year {year}")
+                print(f"{year}: leap year")
             else:
-                print(f'not leap {year}')
+                print(f'{year}: not leap')
         else:
-            print(f'leap year {year}')
+            print(f'{year}: leap year')
     else:
-        print(f'not leap {year}')
+        print(f'{year}: not leap')
     
     
     
