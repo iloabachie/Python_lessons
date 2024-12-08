@@ -1,13 +1,11 @@
 from tkinter import *
 from tkinter import messagebox
-import sys
-sys.path.append("Modulesx")
-from passgen import pass_gen
+from Pass_gen05 import pass_gen
 import pyperclip
 import json
 
 # ---------------------- PASSWORD GENERATOR ------------------------ #
-json_file_path = 'day30-json/logs.json'
+json_file_path = 'day30_json/logs.json'
 
 def delete_item():    
     try:

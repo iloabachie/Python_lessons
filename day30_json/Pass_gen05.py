@@ -1,10 +1,9 @@
-def pass_gen(length=15, symbol=4, numbers=4):
+def pass_gen():
     import random
     a = random.randint(13,18) #int(input("pasword length: "))
-    a = length
-    b = symbol
-    c = numbers
-    d = (a - (b + c)) // 4 # uppercase letters
+    b = 4 #int(input('how many symbols: '))
+    c = 4 #int(input('how many numbers: '))
+    d = (a - (b + c)) // 4 #int(input('how many upper: '))
     big_let = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     sma_let = 'abcdefghijklmnopqrstuvwxyz'
     number = '1234567890'
@@ -27,7 +26,3 @@ def pass_gen(length=15, symbol=4, numbers=4):
     random.shuffle(mix)
     password = ''.join(mix)
     return password
-
-if __name__ == "__main__":
-    print(pass_gen(21))
-    print(pass_gen())

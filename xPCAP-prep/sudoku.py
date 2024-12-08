@@ -4,7 +4,7 @@ from itertools import batched, chain
 
 class Solution:        
     def display(self, board: List[List[str]]) -> None:
-        print(f"Solution" if 0 not in chain(*board) else "Board")            
+        print(f"Solution" if 0 not in chain(*board) else "Input")            
         for i in range(9):
             for _ in range(9):
                 print(("+---" if _ % 3 else "‼---") if i % 3 else ("+===" if _ % 3 else "‼==="), end='')
@@ -19,7 +19,7 @@ class Solution:
         print()
 
     def display1(self, board):
-        print("Solution" if 0 not in chain(*board) else "Input Board")   
+        print("Solution" if 0 not in chain(*board) else "Input")   
         for i, row in enumerate(board):
             if i % 3 == 0 and i != 0:
                 print("-" * 21)  # Print a horizontal separator every 3 rows
@@ -99,48 +99,25 @@ result.display(board)
 
 first = deepcopy(board)
 result.solveSudoku1(first)
-result.display(first)
+result.display1(first)
 
 second = deepcopy(board)
 result.solveSudoku2(second)
 result.display(second)
 
-
-board = [
-    [5, 3, 0, 0, 7, 0, 0, 0, 0],
-    [6, 0, 0, 1, 9, 5, 0, 0, 0],
-    [0, 9, 8, 0, 0, 0, 0, 6, 0],
-    [8, 0, 0, 0, 6, 0, 0, 0, 3],
-    [4, 0, 0, 8, 0, 3, 0, 0, 1],
-    [7, 0, 0, 0, 2, 0, 0, 0, 6],
-    [0, 6, 0, 0, 0, 0, 2, 8, 0],
-    [0, 0, 0, 4, 1, 9, 0, 0, 5],
-    [0, 0, 0, 0, 8, 0, 0, 7, 9]
-]
-
-result = Solution()
-result.display(board)
-
-first = deepcopy(board)
-result.solveSudoku1(first)
-result.display(first)
-
-second = deepcopy(board)
-result.solveSudoku2(second)
-result.display(second)
-
-
+# Hard
 board = str_to_board('000800050097000000060000000200000040000370000000090600000500903800004000000000700')
 result.display(board)
 result.solveSudoku1(board)
 result.display(board)
 
-board = str_to_board('0' * 80 + '9')
-result.display(board)
-result.solveSudoku1(board)
+board = str_to_board('000800050097000000060000000200000040000370000000090600000500903800004000000000700')
+result.display1(board)
+result.solveSudoku2(board)
 result.display(board)
 
+
 board = str_to_board('603000070050090000000000000200705000080000904000300000000600800007000050400000000')
-result.display(board)
+result.display1(board)
 result.solveSudoku1(board)
 result.display(board)
