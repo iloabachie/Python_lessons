@@ -1,3 +1,4 @@
+import ConsolePrint.console2file
 import requests
 import json
 import os
@@ -27,8 +28,8 @@ finally:
 
 print(f'{response.status_code=}')
 
-ConsolePrint.startConsoleSave('weather/summitsx')
+ConsolePrint.console2file.startConsoleSave('weather/summitsx')
 print(json.dumps(weather, indent=3))
-ConsolePrint.endConsoleSave(prompt=False)
+ConsolePrint.console2file.endConsoleSave(prompt=False)
 if response.status_code is not 200:
     print(json.dumps(weather, indent=3)) 
