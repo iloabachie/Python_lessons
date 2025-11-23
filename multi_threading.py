@@ -100,3 +100,27 @@ def stcopy1():
 
 print(timeit(stmt=stcopy))
 print(timeit(stmt=stcopy1))
+
+
+import random
+
+def generate_649():
+    numbers = random.sample(range(1, 50), 6)
+    numbers.sort()
+    return numbers
+
+# Generate a set of 6 numbers for 6/49 lottery
+lottery_numbers_649 = generate_649()
+print("Ontario 6/49 Lottery Numbers:", lottery_numbers_649)
+
+
+def generate_lotto_max():
+    numbers = random.sample(range(1, 50), 7)  # 7 numbers are selected for Lotto Max
+    bonus_number = random.randint(1, 50)  # Bonus number selection
+    numbers.sort()
+    return numbers, bonus_number
+
+# Generate numbers and bonus for Lotto Max
+lottery_numbers_lotto_max, bonus_number = generate_lotto_max()
+print("Ontario Lotto Max Lottery Numbers:", lottery_numbers_lotto_max)
+print("Bonus Number:", bonus_number)

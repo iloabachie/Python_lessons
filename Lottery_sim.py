@@ -70,7 +70,7 @@ def calc_win_amt(my_numbers, winning_numbers):
 hit_jp = False
 drawings = 0
 years = 0
-while True:
+while not hit_jp:
     drawings += 1
     white_drawing = set(random.sample(white_possibles, k=5))
     red_drawing = random.choice(red_possibles)
@@ -96,11 +96,32 @@ while True:
         years += 1
         print(f' {years:,} years', end='\r')
 
-    if hit_jp:
-        break
 
 print(f'\nSpent: ${total_spent:,}')
 print(f'Earnings: ${earnings:,}')
 
 print(json.dumps(times_won, indent=2))
 print(times_won)
+
+
+
+def generate_649():
+    numbers = random.sample(range(1, 50), 6)
+    numbers.sort()
+    return numbers
+
+# Generate a set of 6 numbers for 6/49 lottery
+lottery_numbers_649 = generate_649()
+print("Ontario 6/49 Lottery Numbers:", lottery_numbers_649)
+
+
+def generate_lotto_max():
+    numbers = random.sample(range(1, 50), 7)  # 7 numbers are selected for Lotto Max
+    bonus_number = random.randint(1, 50)  # Bonus number selection
+    numbers.sort()
+    return numbers, bonus_number
+
+# Generate numbers and bonus for Lotto Max
+lottery_numbers_lotto_max, bonus_number = generate_lotto_max()
+print("Ontario Lotto Max Lottery Numbers:", lottery_numbers_lotto_max)
+print("Bonus Number:", bonus_number)
